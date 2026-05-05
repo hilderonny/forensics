@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8">
+        <link rel="manifest" href="./manifest.json">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <link rel="apple-touch-icon" href="images/forensics.png">
+        <link rel="shortcut icon" href="images/forensics.png">
+        <link rel="stylesheet" href="styles/forensics.css">
+        <script src="js/vue@3.2.26.global.prod.js"></script>
+        <script type="module" src="js/aufgabeneditor.mjs"></script>
+    </head>
+    <body>
+        
+        <!-- Titelzeile -->
+        <titelzeile :fuer-einstellungen="true"></titelzeile>
+
+        <!-- Toolbar -->
+        <div class="app-toolbar">
+
+            <div class="app-title">Einstellungen</div>
+
+            <button class="tab-button" onclick="location.href='persoenlicheEinstellungen.html'">Persönliche Einstellungen</button>
+            <button class="tab-button" onclick="location.href='datenbank.html'">Datenbank</button>
+            <button class="tab-button" @click="behandleVorgangstypenButtonKlick">Vorgangstypen</button>
+            <button class="tab-button selected">{{ aufgabe?.Titel }}</button>
+
+        </div>
+
+        <!-- Anwendungsinhalt -->
+        <div v-if="aufgabe && vorgangstyp" class="app-content">
+
+            <div class="app-content-grid grid-2-col" style="flex:1; grid-auto-rows: min-content auto; overflow: auto;">
+
+                <!-- Metadaten -->
+                <div class="panel" :class="{changed: aenderungVorhanden}" style="grid-column: 1 / 3; grid-row: 1;">
+                    <div class="panel-header">
+                        <div class="panel-title">{{ aufgabe.Titel }}</div>
+                        <div class="button-group">
+                            <button class="button save" @click="behandleSpeichernButtonKlick">Speichern</button>
+                            <button class="button red" @click="behandleLoeschenButtonKlick">Löschen</button>
+                        </div>
+                    </div>
+                
+                    <div class="panel-grid grid-2-col">
+
+                        <!-- Zeile 1 -->
+                        <div class="forminput">
+                            <label>Vorgangstyp</label>
+                            <a class="link" @click="behandleVorgangstypenButtonKlick">{{ vorgangstyp.Name }}</a>
+                        </div>
+
+                        <div class="forminput">
+                            <label>Archiviert <sup class="circle" title="Archivierte Aufgaben werden nur angezeigt, wenn dazu bereits Tätigkeiten protokolliert wurden">?</sup></label>
+                            <input type="checkbox" :checked="!!aufgabe.Archiviert" @input="(event) => { aufgabe.Archiviert = event.target.checked ? 1 : 0; aenderungVorhanden = true }" />
+                        </div>
+                
+                        <!-- Zeile 2 -->
+                        <div class="forminput">
+                            <label>Titel</label>
+                            <input v-model="aufgabe.Titel" @input="aenderungVorhanden = true"  />
+                        </div>
+                
+                        <div class="forminput">
+                            <label>Reihenfolge</label>
+                            <input type="number" v-model="aufgabe.Reihenfolge" @input="aenderungVorhanden = true"  />
+                        </div>
+                    
+                    </div>
+
+                </div>
+
+                <!-- Beschreibungseditor -->
+                <div class="panel" :class="{changed: aenderungVorhanden}">
+                    <div class="panel-header">
+                        <div class="panel-title">Beschreibung</div>
+                    </div>
+                
+                    <textarea v-model="aufgabe.Beschreibung" @input="aenderungVorhanden = true" style="flex:1; padding: 8px;""></textarea>
+
+                </div>
+
+                <!-- Vorschau -->
+                <div class="panel" :class="{changed: aenderungVorhanden}" style="overflow: auto;">
+                    <div class="panel-header">
+                        <div class="panel-title">Vorschau</div>
+                    </div>
+                
+                    <div class="forminput" style="padding: 8px 16px; overflow: auto;">
+                        <div class="description mark" v-html="formatiereMarkDown(ersetzePlatzhalter(aufgabe.Beschreibung))"></div>
+                    </div>
+
+                </div>
+            
+            </div>
+
+        </div>
+        
+    </body>
+  
+</html>

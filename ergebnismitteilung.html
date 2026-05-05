@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="manifest" href="./manifest.json">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <link rel="apple-touch-icon" href="images/forensics.png">
+        <link rel="shortcut icon" href="images/forensics.png">
+        <link rel="stylesheet" href="styles/forensics.css">
+        <script>window.PagedConfig = { auto: false };</script>
+        <link href="styles/print.css" rel="stylesheet" type="text/css" />
+        <link href="styles/interface.css" rel="stylesheet" type="text/css" />
+        <script src="js/vue@3.2.26.global.prod.js"></script>
+        <script type="module" src="js/ergebnismitteilung.mjs"></script>
+        <script src="js/paged.polyfill.min.js"></script>
+    </head>
+    <body>
+
+        <div v-if="benutzer && vorgang && spuren" class="printable results" contenteditable>
+
+            <div class="leftfooter">{{ dienststelle.Name }}</div>
+
+            <div class="centerfooter">Geschäftszeichen: {{ vorgang.Vorgangsnummer }}</div>
+
+            <div class="firstpageheader">
+
+                <img class="logo" :src="dienststelle.KAB_Logo" />
+
+                <img class="barcode" :src="dienststelle.KAB_Barcode" />
+
+                <div class="lochertopline"></div>
+                <div class="lochermiddleline"></div>
+                <div class="locherbottomline"></div>
+
+                <p class="absender">{{ dienststelle.Name }}<br/>{{ dienststelle.Strasse }} &middot; {{ dienststelle.Postleitzahl }} {{ dienststelle.Ort }}</p>
+
+
+            </div>
+
+            <div class="sidebar">
+
+                <h3>Ihr/-e Ansprechpartner/-in</h3>
+                <p>{{ benutzer.Name }}</p>
+                <h4>Durchwahl</h4>
+                <table>
+                    <tr>
+                        <td>Telefon</td>
+                        <td class="full">{{ benutzer.Telefonnummer }}</td>
+                    </tr>
+                    <tr>
+                        <td>Telefax</td>
+                        <td class="full">{{ benutzer.Faxnummer }}</td>
+                    </tr>
+                </table>
+
+                <p>{{ benutzer.Email }}</p>
+
+                <h3>Ihr Zeichen</h3>
+                <p>{{ vorgang.Aktenzeichen }}</p>
+
+                <h3>Ihre Nachricht vom</h3>
+                <p>{{ formatiereDatum(vorgang.Auftragsdatum) }}</p>
+
+                <h3>Unser Zeichen</h3>
+                <p>(bitte bei Antwort angeben)<br/>{{ vorgang.Vorgangsnummer }}</p>
+
+                <p>{{ dienststelle.Ort }}<br/>{{ formatiereDatum(aktuellesDatum) }}</p>
+
+            </div>
+            
+            <div class="disclaimer" v-html="dienststelle.Disclaimer"></div>
+
+            <div class="main">
+
+                <p class="address">{{ vorgang.Auftraggeber }}</p>
+
+                <h1>Kriminaltechnischer Auswertungsbericht</h1>
+
+                <table>
+                <tr>
+                        <td>Untersuchungsauftrag</td>
+                        <td class="full">{{ vorgang.Auftragsnummer }}</td>
+                    </tr>
+                    <tr>
+                        <td>Anlass / Delikt</td>
+                        <td class="full">{{ vorgang.Straftaten }}</td>
+                    </tr>
+                    <tr>
+                        <td>Ihr Aktenzeichen</td>
+                        <td class="full">{{ vorgang.Aktenzeichen }}</td>
+                    </tr>
+                </table>
+
+                <h2>Gegenstand der Untersuchung</h2>
+
+                <ul>
+                    <li v-for="spur in sortierteSpuren">{{ spur.Spurnummer }}: {{spur.Spurname }}</li>
+                </ul>
+
+                <p v-html="formatiereMarkDown(ersetzePlatzhalter(dienststelle.KAB_Anschreiben, vorgang))"></p>
+
+                <ol>
+                    <li v-for="vorgangsfrage in vorgangsfragen">{{ vorgangsfrage.Frage }}</li>
+                </ol>
+
+                <h2>Zusammenfassung</h2>
+
+                <template v-for="vorgangsfrage in vorgangsfragen">
+                    <p v-if="vorgangsfrage.Antwort.length > 0">
+                        <b>Zu {{ vorgangsfrage.Nummer }}.:</b>
+                        <span class="mark" v-html="formatiereMarkDown(vorgangsfrage.Antwort)"></span>
+                    </p>
+                </template>
+
+                <h2 v-if="spurenMitBesonderheiten.length > 0">Besonderheiten</h2>
+
+                <p v-for="spur in spurenMitBesonderheiten">
+                    <b>{{ spur.Spurnummer }}:</b>
+                    <span v-html="formatiereMarkDown(spur.Besonderheiten)"></span>
+                </p>
+
+                <p class="imauftrag">Im Auftrag</p>
+
+                <p>{{ benutzer.Name }}</p>
+
+            </div>
+        </div>
+
+    </body>
+
+</html>

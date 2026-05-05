@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8">
+        <title>Vorgänge</title>
+        <link rel="manifest" href="./manifest.json">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <link rel="apple-touch-icon" href="images/forensics.png">
+        <link rel="shortcut icon" href="images/forensics.png">
+        <link rel="stylesheet" href="styles/forensics.css">
+        <script src="js/vue@3.2.26.global.prod.js"></script>
+        <script type="module" src="js/vorgangsuebersicht.mjs"></script>
+    </head>
+    <body>
+        
+        <!-- Titelzeile -->
+        <titelzeile :fuer-einstellungen="false"></titelzeile>
+
+        <!-- Toolbar -->
+        <div class="app-toolbar">
+            <div class="app-title">Vorgangsübersicht</div>
+
+            <button class="tab-button" :class="{selected: selectedTab=='meinevorgaenge'}" @click="handleMeineVorgaengeTabButtonClick">Meine Vorgänge</button>
+            <button class="tab-button" :class="{selected: selectedTab=='allevorgaenge'}" @click="handleAlleVorgaengeTabButtonClick">Alle Vorgänge</button>
+        </div>
+
+        <!-- Anwendungsinhalt -->
+        <div class="app-content">
+
+            <div class="app-content-grid">
+
+                <vorgangsliste
+                    v-for="vorgangsstatus in vorgangsstatuses"
+                    :vorgaenge="anzuzeigendeVorgaenge.filter(vorgang => vorgang.Status === vorgangsstatus.id)"
+                    :vorgangsstatus="vorgangsstatus"
+                    :zeige-benutzer="zeigeBenutzer"
+                ></vorgangsliste>
+                
+            </div>
+
+        </div>
+        
+    </body>
+  
+</html>

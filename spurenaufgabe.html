@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="manifest" href="./manifest.json">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <link rel="apple-touch-icon" href="images/forensics.png">
+        <link rel="shortcut icon" href="images/forensics.png">
+        <link rel="stylesheet" href="styles/forensics.css">
+        <script src="js/vue@3.2.26.global.prod.js"></script>
+        <script type="module" src="js/spurenaufgabe.mjs"></script>
+    </head>
+    <body>
+
+        <template v-if="vorgang && spur && aufgabe && aufgabenstatus">
+            
+            <!-- Titelzeile -->
+        <titelzeile :fuer-einstellungen="false"></titelzeile>
+
+            <!-- Toolbar -->
+            <div class="app-toolbar">
+                <div class="app-title">Spurenaufgabe</div>
+
+                <button class="tab-button" onclick="location.href='index.html'">Vorgangsübersicht</button>
+                <button class="tab-button" :onclick="'location.href=\'vorgangsdetails.html?' + vorgangsId + '\''">{{ vorgang.Vorgangsnummer }}</button>
+                <button class="tab-button" :onclick="'location.href=\'spurendetails.html?' + vorgangsId + '&' + spurenId + '\''">{{ spur.Spurnummer }}</button>
+                <button class="tab-button selected">{{ aufgabe.Titel }}</button>
+            </div>
+
+            <!-- Anwendungsinhalt -->
+            <div class="app-content">
+
+                <div class="app-content-grid grid-1-2-col">
+
+                    <!-- Details -->
+                    <div class="panel v-r-task-details-panel" :class="{changed: aenderungVorhanden}">
+                    
+                        <div class="panel-header">
+                            <div class="panel-title">{{ aufgabe.Titel }}</div>
+                        </div>
+                    
+                        <div class="panel-grid">
+                    
+                            <div class="forminput">
+                                <label>Vorgang</label>
+                                <a class="link" :href="'vorgangsdetails.html?' + vorgangsId">{{ vorgang.Vorgangsnummer }}</a>
+                            </div>
+                    
+                            <div class="forminput">
+                                <label>Spur</label>
+                                <a class="link" :href="'spurendetails.html?' + vorgangsId + '&' + spurenId">{{ spur.Spurnummer }}</a>
+                            </div>
+                    
+                            <div class="forminput">
+                                <label>Status</label>
+                                <select v-model="aufgabenstatus.Status" @change="aufgabenstatus.save()" :style="'background-color:' + aufgabenstatuses.find(status => status.id === aufgabenstatus.Status)?.farbe">
+                                    <option v-for="aufgabenstatusdefinition in aufgabenstatuses" :value="aufgabenstatusdefinition.id" :style="'background-color:' + aufgabenstatusdefinition.farbe">{{ aufgabenstatusdefinition.bezeichnung }}</option>
+                                </select>
+                            </div>
+                    
+                            <div class="forminput">
+                                <label>Beschreibung</label>
+                                <div class="description mark" v-html="formatiereMarkDown(ersetzePlatzhalter(aufgabe.Beschreibung, vorgang, undefined, spur, benutzerdaten))"></div>
+                            </div>
+                    
+                        </div>
+                    
+                    </div>
+
+                    <!-- Tätigkeiten -->
+                    <taetigkeitenliste
+                        :aufgabenstatus="aufgabenstatus"
+                        :taetigkeiten="taetigkeiten"
+                    ></taetigkeitenliste>
+
+                </div>
+
+            </div>
+
+        </template>
+        
+    </body>
+  
+</html>

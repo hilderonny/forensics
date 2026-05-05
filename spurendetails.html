@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="manifest" href="./manifest.json">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <link rel="apple-touch-icon" href="images/forensics.png">
+        <link rel="shortcut icon" href="images/forensics.png">
+        <link rel="stylesheet" href="styles/forensics.css">
+        <script src="js/vue@3.2.26.global.prod.js"></script>
+        <script type="module" src="js/spurendetails.mjs"></script>
+    </head>
+    <body>
+        
+        <!-- Titelzeile -->
+        <titelzeile :fuer-einstellungen="false"></titelzeile>
+
+        <!-- Toolbar -->
+        <div v-if="spur && vorgang" class="app-toolbar">
+            <div class="app-title">Spurendetails</div>
+
+            <button class="tab-button" onclick="location.href='index.html'">Vorgangsübersicht</button>
+            <button class="tab-button" :onclick="'location.href=\'vorgangsdetails.html?' + vorgangsId + '\''">{{ vorgang.Vorgangsnummer }}</button>
+            <button class="tab-button selected">{{ spur.Spurnummer }}</button>
+        </div>
+
+        <!-- Anwendungsinhalt -->
+        <div v-if="spur && vorgang" class="app-content">
+
+            <div class="app-content-grid grid-4-col">
+
+                <!-- Details -->
+                <div class="panel v-r-task-details-panel" :class="{changed: aenderungVorhanden}" style="grid-column: 1 / 5; grid-row: 1">
+                
+                    <div class="panel-header">
+                        <div class="panel-title">{{ spur.Spurnummer + ' ' + spur.Spurname }}</div>
+                        <div class="button-group">
+                            <button class="button save" @click="behandleSpeichernButtonKlick">Speichern</button>
+                            <button class="button red" @click="behandleLoeschenButtonKlick">Löschen</button>
+                        </div>
+                    </div>
+                
+                    <div class="panel-grid">
+                
+                        <!-- Spalte 1 -->
+
+                        <div class="forminput" style="grid-column: 1; grid-row: 1">
+                            <label>Vorgang</label>
+                            <a class="link" :href="'vorgangsdetails.html?' + vorgangsId">{{ vorgang.Vorgangsnummer }}</a>
+                        </div>
+                
+                        <div class="forminput" style="grid-column: 1; grid-row: 2">
+                            <label>Spurnummer</label>
+                            <input v-model="spur.Spurnummer" @input="aenderungVorhanden = true" />
+                        </div>
+                
+                        <div class="forminput" style="grid-column: 1; grid-row: 3">
+                            <label>Spurname</label>
+                            <input v-model="spur.Spurname" @input="aenderungVorhanden = true" />
+                        </div>
+
+                        <!-- Spalte 2 -->
+
+                        <div class="forminput" style="grid-column: 2; grid-row: 1">
+                            <label>Typ</label>
+                            <select v-model="spur.Geraeteart" @change="aenderungVorhanden = true">
+                                <option v-for="geraeteart in geraetearten" :value="geraeteart.id">{{ geraeteart.bezeichnung }}</option>
+                            </select>
+                        </div>
+
+                        <div class="forminput" style="grid-column: 2; grid-row: 2">
+                            <label>Genaue Gerätebezeichnung</label>
+                            <input v-model="spur.Geraetebezeichnung" @input="aenderungVorhanden = true" />
+                        </div>
+                
+                        <div class="forminput" style="grid-column: 2; grid-row: 3">
+                            <label>Seriennummer</label>
+                            <input v-model="spur.Seriennummer" @input="aenderungVorhanden = true" />
+                        </div>
+                        
+                        <!-- Spalte 3 -->
+
+                        <div class="forminput" style="grid-column: 3; grid-row: 1">
+                            <label>Datenumfang <sup class="circle" title="Speicherbedarf der Sicherung (E01) der Spur aufgerundet in GB">?</sup></label>
+                            <input type="number" v-model="spur.Datenumfang" @input="aenderungVorhanden = true" />
+                        </div>
+
+                        <div class="forminput" style="grid-column: 3; grid-row: 2">
+                            <label>DaSi-Platte</label>
+                            <input v-model="spur.Dasiplatte" @input="aenderungVorhanden = true" />
+                        </div>
+
+                        <div class="forminput" style="grid-column: 3; grid-row: 3">
+                            <label>Herausgegeben</label>
+                            <input type="checkbox" :checked="!!spur.Herausgegeben" @input="(event) => { spur.Herausgegeben = event.target.checked ? 1 : 0; aenderungVorhanden = true }" />
+                        </div>
+
+                        <!-- Spalte 4 -->
+
+                        <div class="forminput" style="grid-column: 4; grid-row: 1 / 4">
+                            <label>Besonderheiten</label>
+                            <textarea v-model="spur.Besonderheiten" @input="aenderungVorhanden = true"></textarea>
+                        </div>
+
+                        <!-- Aufgabenleiste -->
+                        <aufgabenleiste
+                            aufgabentyp="Spurenaufgabe"
+                            :aufgabenstatuses="aufgabenstatuses"
+                            :vorgangstypid="vorgang.VorgangstypenId"
+                            :ziel-url="'spurenaufgabe.html?' + vorgangsId + '&' + spurenId + '&'"
+                        ></aufgabenleiste>
+
+                    </div>
+                
+                </div>
+
+                <!-- Notizen -->
+                <notizenliste
+                    :spuren-id="spurenId"
+                ></notizenliste>
+
+                <!-- Relevante Fragen -->
+                <spurenfragen
+                    :spuren-id="spurenId"
+                ></spurenfragen>
+
+                <!-- Tätigkeiten -->
+                <spurentaetigkeiten
+                    :spuren-id="spurenId"
+                ></spurentaetigkeiten>
+                                
+            </div>
+
+        </div>
+        
+    </body>
+  
+</html>

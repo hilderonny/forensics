@@ -1,0 +1,241 @@
+
+body {
+    color: #000000;
+    display: block;
+    position: initial;
+}
+
+.results {
+    
+    h1 {
+        font-size: 14pt;
+        margin: 30px 0;
+        text-align: left;
+    }
+    
+    h2 {
+        color: rgb(0, 0, 0);
+        font-size: 13pt;
+        font-weight: bold;
+        margin: 30px 0 10px 0;
+        text-align: left;
+    }
+    
+    h3 {
+        color: rgb(0, 0, 0);
+        font-size: 8pt;
+        font-weight: bold;
+        margin: 15px 0 0 0;
+        text-align: left;
+    }
+    
+    p {
+        margin-bottom: 10px;
+        word-wrap: break-word;
+    }
+    
+    td {
+        border: none;
+        white-space: pre-wrap;
+    }
+    
+    ul {
+        margin-bottom: 10px;
+    }
+    
+    .imauftrag {
+        margin: 1.5cm 0 2cm 0;
+    }
+    
+    .main {
+
+        font-size: 11pt;
+
+        td {
+            padding: 2pt 10pt 2pt 0;
+        }
+
+        .address {
+            margin: 1cm 0 2.5cm 0;
+            white-space: pre-wrap;
+        }
+
+    }
+    
+}
+
+.firstpageheader {
+    position: running(firstpageheader);
+
+    .barcode {
+        left: 1cm;
+        position: absolute;
+        bottom: 2.5cm;
+        height: 3cm;
+        width: 1cm;
+    }
+
+    .logo {
+        left: 12cm;
+        position: absolute;
+        top: 1cm;
+        width: 7.36cm;
+    }
+
+    .absender {
+        top: 5.5cm;
+        position: absolute;
+        left: 3cm;
+        font-size: 6pt;
+        text-align: left;
+    }
+
+    .lochertopline {
+        top: calc(50% - 4cm);
+        position: absolute;
+        border-top: 1px solid black;
+        width: 5mm;
+        left: 5mm;
+    }
+
+    .lochermiddleline {
+        top: 50%;
+        position: absolute;
+        border-top: 1px solid black;
+        width: 7.5mm;
+        left: 5mm;
+    }
+
+    .locherbottomline {
+        top: calc(50% + 4cm);
+        position: absolute;
+        border-top: 1px solid black;
+        width: 5mm;
+        left: 5mm;
+    }
+}
+
+.sidebar {
+    
+    font-size: 7pt;
+    margin-left: 0.3cm;
+    min-width: 4.2cm;
+    position: running(sidebar);
+    text-align: left;
+    width: 4cm;
+
+    h3 {
+        font-size: 8pt;
+    }
+
+    h4 {
+        font-size: 7pt;
+    }
+
+    p {
+        margin-bottom: 8pt;
+    }
+
+    table {
+        margin-bottom: 8pt;
+        width: 100%;
+    }
+    
+    td {
+        padding: 0 2pt 0 0;
+    }
+    
+    tr {
+        height: 9pt;
+    }
+
+}
+
+.disclaimer {
+
+    border-top: 1px solid black;
+    font-size: 7pt;
+    padding-top: 2pt;
+    position: running(disclaimer);
+    text-align: left;
+    width: 4cm;
+
+    h3 {
+        font-size: 7pt;
+    }
+
+    p {
+        margin: 8pt 0;
+    }
+
+}
+
+.centerfooter {
+    position: running(centerfooter);
+    white-space: nowrap;
+}
+
+.leftfooter {
+    position: running(leftfooter);
+    white-space: nowrap;
+}
+
+/* Fix for table issues https://github.com/pagedjs/pagedjs/issues/149#issuecomment-2613941984 */
+.pagedjs_page_content{
+    column-width: auto!important;
+}
+
+@page {
+
+    size: A4;
+    margin: 2cm 2cm 2.5cm 3cm;
+
+    @bottom-left {
+        font-size: 8pt;
+        content: element(leftfooter);
+    }
+
+    @bottom-center {
+        font-size: 8pt;
+        content: element(centerfooter);
+    }
+
+    @bottom-right {
+        font-size: 8pt;
+        content: "Seite " counter(page) " von " counter(pages);
+    }
+
+}
+
+@page:first {
+
+    margin: 5.5cm 5cm 2.5cm 3cm;
+
+    @bottom-left {
+        content: "";
+        visibility: hidden;
+    }
+
+    @bottom-center {
+        content: "";
+        visibility: hidden;
+    }
+
+    @bottom-right {
+        content: "";
+        visibility: hidden;
+    }
+
+    @right-top {
+        content: element(sidebar);
+    }
+
+    @right-bottom {
+        content: element(disclaimer);
+    }
+
+    @top-left-corner {
+        content: element(firstpageheader);
+    }
+
+}

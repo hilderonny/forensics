@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8">
+        <title>Datenbank</title>
+        <link rel="manifest" href="./manifest.json">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <link rel="apple-touch-icon" href="images/forensics.png">
+        <link rel="shortcut icon" href="images/forensics.png">
+        <link rel="stylesheet" href="styles/forensics.css">
+        <script src="js/vue@3.2.26.global.prod.js"></script>
+        <script type="module" src="js/datenbank.mjs"></script>
+    </head>
+    <body>
+        
+        <!-- Titelzeile -->
+        <titelzeile :fuer-einstellungen="true"></titelzeile>
+
+        <!-- Toolbar -->
+        <einstellungen-toolbar selected-tab="Datenbank"></einstellungen-toolbar>
+
+        <!-- Anwendungsinhalt -->
+        <div class="app-content">
+
+            <div class="app-content-grid">
+
+                <!-- Datenbankschema -->
+                <div class="panel">
+
+                    <div class="panel-header">
+                        <div class="panel-title">Datenbankschema</div>
+                        <div class="button-group">
+                            <button class="button" @click="behandleDatenbankSchemaAktualisierenButtonKlick">Schema aktualisieren</button>
+                        </div>
+                    </div>
+        
+                    <div class="panel-grid">
+                        <p v-for="protokolleintrag in datenbankaktualisierungsprotokoll" v-html="protokolleintrag"></p>
+                    </div>
+                </div>
+
+                <!-- Import / Export von Vorgangstypen -->
+                <div class="panel">
+
+                    <div class="panel-header">
+                        <div class="panel-title">Import / Export von Vorgangstypen</div>
+                        <div class="button-group">
+                            <form class="button">
+                                <label>
+                                    <input type="file" accept="application/json" style="display: none" @change="behandleVorgangstypenImportDateiSelektiert" />
+                                    <span>Importieren</span>
+                                </label>
+                            </form>
+                            <button class="button" @click="behandleVorgangstypenExportButtonKlick">Exportieren</button>
+                        </div>
+                    </div>
+        
+                    <div class="panel-grid">
+                        <p v-for="protokolleintrag in vorgangstypenimportprotokoll" v-html="protokolleintrag"></p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Setup - Dialog -->
+        <div v-if="zeigeEinrichtungsdialog" class="dialog-background">
+
+            <!-- Datenbank einrichten -->
+            <div v-if="aktuelleEinrichtungsdialogseite==1" class="dialog">
+            
+                <div class="dialog-header">Datenbank einrichten</div>
+
+                <div class="dialog-content">
+
+                    <h1 class="panel-grid">Willkommen bei Ihrer neuen Forensics-Instanz!</h1>
+
+                    <div class="panel-grid">Lassen Sie uns zunächst die Datenbank initialisieren und die notwendigen Tabellen anlegen.</div>
+
+                    <div style="text-align: center">
+                        <button class="button blue" @click="behandleDatenbankSchemaAktualisierenButtonKlick">Datenbank einrichten</button>
+                    </div>
+
+                    <div class="panel-grid">
+                        <p v-for="protokolleintrag in datenbankaktualisierungsprotokoll" v-html="protokolleintrag"></p>
+                    </div>
+
+                    <div v-if="datenbankschemaWurdeAltualisiert" class="panel-grid">
+                        Die Datenbank ist erfolgreich eingerichtet.
+                        Klicken Sie auf "Weiter", um mit der Einrichtung fortzufahren.
+                    </div>
+
+                </div>
+
+                <div class="dialog-footer">
+                    <span></span>
+                    <button class="button" :class="{disabled: !datenbankschemaWurdeAltualisiert, blue: datenbankschemaWurdeAltualisiert }" :disabled="!datenbankschemaWurdeAltualisiert" @click="aktuelleEinrichtungsdialogseite = 2">Weiter</button>
+                </div>
+
+            </div>
+
+            <!-- Vorgangstyp anlegen -->
+            <div v-if="aktuelleEinrichtungsdialogseite==2" class="dialog">
+            
+                <div class="dialog-header">Vorgangstyp anlegen</div>
+
+                <div class="dialog-content">
+
+                    <div class="panel-grid">Zur Vorgangsbearbeitung benötigen Sie mindestens einen Vorgangstypen.</div>
+
+                    <div class="panel-grid">Bitte geben Sie den Namen eines neuen Vorgangstypen an.</div>
+
+                    <div class="panel-grid">
+                        <div class="forminput">
+                            <label>Name des Vorgangstyps</label>
+                            <input v-model="vorgangstypname" placeholder="Aufbereitung" />
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="dialog-footer">
+                    <button class="button" @click="aktuelleEinrichtungsdialogseite = 1">Zurück</button>
+                    <button class="button" :class="{disabled: !vorgangstypname, blue: vorgangstypname }" :disabled="!vorgangstypname" @click="behandleEinrichtungsdialogVorgangstypSpeichernUndWeiterButtonKlick">Speichern und weiter</button>
+                </div>
+
+            </div>
+
+            <!-- Dienststelle anlegen -->
+            <div v-if="aktuelleEinrichtungsdialogseite==3" class="dialog">
+            
+                <div class="dialog-header">Dienststelle anlegen</div>
+
+                <div class="dialog-content">
+
+                    <div class="panel-grid">Nun benötigen wir eine Dienststelle, zu der Sie gehören.</div>
+
+                    <div class="panel-grid">
+                        <div class="forminput">
+                            <label>Name der Dienststelle</label>
+                            <input v-model="dienststellenname" />
+                        </div>
+                    </div>
+
+                    <div class="panel-grid">Weitere Angaben zur Dienststelle können Sie später in den Einstellungen tätigen.</div>
+
+                </div>
+
+                <div class="dialog-footer">
+                    <button class="button" @click="aktuelleEinrichtungsdialogseite = 2">Zurück</button>
+                    <button class="button" :class="{disabled: !dienststellenname, blue: dienststellenname }" :disabled="!dienststellenname" @click="behandleEinrichtungsdialogDienststelleSpeichernUndWeiterButtonKlick">Speichern und weiter</button>
+                </div>
+
+            </div>
+
+            <!-- Benutzer anlegen -->
+            <div v-if="aktuelleEinrichtungsdialogseite==4" class="dialog">
+            
+                <div class="dialog-header">Benutzerinformationen angeben</div>
+
+                <div class="dialog-content">
+
+                    <div class="panel-grid">Und nun geben Sie bitte noch Ihren Namen an.</div>
+
+                    <div class="panel-grid">
+                        <div class="forminput">
+                            <label>Ihr Name</label>
+                            <input v-model="benutzername" />
+                        </div>
+                    </div>
+
+                    <div class="panel-grid">Weitere Angaben zu Ihrer Person können Sie später in den Einstellungen tätigen.</div>
+
+                </div>
+
+                <div class="dialog-footer">
+                    <button class="button" @click="aktuelleEinrichtungsdialogseite = 3">Zurück</button>
+                    <button class="button" :class="{disabled: !benutzername, blue: benutzername }" :disabled="!benutzername" @click="behandleEinrichtungsdialogBenutzerSpeichernUndBeendenButtonKlick">Speichern und beenden</button>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </body>
+  
+</html>

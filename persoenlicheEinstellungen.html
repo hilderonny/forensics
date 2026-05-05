@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8">
+        <title>Persönliche Einstellungen</title>
+        <link rel="manifest" href="./manifest.json">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <link rel="apple-touch-icon" href="images/forensics.png">
+        <link rel="shortcut icon" href="images/forensics.png">
+        <link rel="stylesheet" href="styles/forensics.css">
+        <script src="js/vue@3.2.26.global.prod.js"></script>
+        <script type="module" src="js/persoenlicheEinstellungen.mjs"></script>
+    </head>
+    <body>
+        
+        <!-- Titelzeile -->
+        <titelzeile :fuer-einstellungen="true"></titelzeile>
+
+        <!-- Toolbar -->
+        <einstellungen-toolbar selected-tab="Persönliche Einstellungen"></einstellungen-toolbar>
+
+        <!-- Anwendungsinhalt -->
+        <div class="app-content">
+
+            <div class="app-content-grid">
+
+                <div v-if="benutzer" class="panel" :class="{changed: aenderungVorhanden}">
+                    <div class="panel-header">
+                        <div class="panel-title">Persönliche Einstellungen</div>
+                        <div class="button-group">
+                            <button class="button save" @click="behandleSpeichernButtonKlick">Speichern</button>
+                        </div>
+                    </div>
+        
+                    <div class="panel-grid">
+        
+                        <div class="forminput">
+                            <label>Name <sup class="circle" title="Nachname, Titel oder Nachname, Vorname oder Vorname Nachname">?</sup></label>
+                            <input v-model="benutzer.Name" @input="aenderungVorhanden = true" />
+                        </div>
+        
+                        <div class="forminput">
+                            <label>Dienststelle</label>
+                            <select v-model="benutzer.DienststellenId" @change="aenderungVorhanden = true">
+                                <option v-for="dienststelle in dienststellen" :value="dienststelle.Id">{{ dienststelle.Name }}</option>
+                            </select>
+                        </div>
+        
+                        <div class="forminput">
+                            <label>Telefonnummer <sup class="circle" title="z.B. &quot;+49 236 431 - 0000&quot;">?</sup></label>
+                            <input v-model="benutzer.Telefonnummer" @input="aenderungVorhanden = true" />
+                        </div>
+        
+                        <div class="forminput">
+                            <label>Faxnummer <sup class="circle" title="z.B. &quot;+49 236 431 - 0000&quot;">?</sup></label>
+                            <input v-model="benutzer.Faxnummer" @input="aenderungVorhanden = true" />
+                        </div>
+        
+                        <div class="forminput">
+                            <label>E-Mail</label>
+                            <input v-model="benutzer.Email" @input="aenderungVorhanden = true" />
+                        </div>
+        
+                        <div class="forminput">
+                            <label>Vorgangsverzeichnis <sup class="circle" title="Absoluter UNC-Pfad des Basisverzeichnisses für alle Vorgänge, z.B. \\\\UPC\\Vorgaenge">?</sup></label>
+                            <input v-model="benutzer.Vorgangsverzeichnis" @input="aenderungVorhanden = true" placeholder="\\COMPUTER\Pfad" />
+                        </div>
+                        
+                    </div>
+        
+                </div>
+        
+
+            </div>
+
+        </div>
+        
+    </body>
+  
+</html>

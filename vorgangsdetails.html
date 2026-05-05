@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="manifest" href="./manifest.json">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <link rel="apple-touch-icon" href="images/forensics.png">
+        <link rel="shortcut icon" href="images/forensics.png">
+        <link rel="stylesheet" href="styles/forensics.css">
+        <script src="js/vue@3.2.26.global.prod.js"></script>
+        <script type="module" src="js/vorgangsdetails.mjs"></script>
+    </head>
+    <body>
+
+        <template v-if="vorgang && vorgangstypen">
+            
+            <!-- Titelzeile -->
+            <titelzeile :fuer-einstellungen="false"></titelzeile>
+
+            <!-- Toolbar -->
+            <div class="app-toolbar">
+                <div class="app-title">Vorgangsdetails</div>
+
+                <button class="tab-button" onclick="location.href='index.html'">Vorgangsübersicht</button>
+                <button class="tab-button selected">{{ vorgang.Vorgangsnummer }}</button>
+            </div>
+
+            <!-- Anwendungsinhalt -->
+            <div class="app-content">
+
+                <div class="app-content-grid">
+
+                    <!-- Vorgangsdetails -->
+                    <div class="panel vorgangsdetails" :class="{changed: aenderungVorhanden}">
+
+                        <div class="panel-header">
+                            <div class="panel-title">{{ vorgang.vorgangsnummer }}</div>
+                            <div class="button-group">
+                                <form class="button">
+                                    <label>
+                                        <input type="file" accept="application/pdf" style="display: none" @change="behandleKtuImportDateiSelektiert" />
+                                        <span>KTU importieren</span>
+                                    </label>
+                                </form>
+                                <a class="button" :href="'taetigkeitsprotokoll.html?' + vorgangsId" target="_blank">Tätigkeitsprotokoll</a>
+                                <a class="button" :href="'zeitnachweis.html?' + vorgangsId" target="_blank">Zeitnachweis</a>
+                                <a class="button" :href="'ergebnismitteilung.html?' + vorgangsId" target="_blank">Ergebnismitteilung</a>
+                                <button class="button save" @click="behandleSpeichernButtonKlick">Speichern</button>
+                                <button class="button red" @click="behandleLoeschenButtonKlick">Löschen</button>
+                            </div>
+                        </div>
+                    
+                        <div class="panel-grid grid-4-col">
+                    
+                            <!-- Spalte 1 -->
+                            <div class="forminput" style="grid-column: 1; grid-row: 1">
+                                <label>Vorgangsnummer</label>
+                                <input v-model="vorgang.Vorgangsnummer" @input="aenderungVorhanden = true" />
+                            </div>
+                    
+                            <div class="forminput" style="grid-column: 1; grid-row: 2">
+                                <label>Typ</label>
+                                <select v-model="vorgang.VorgangstypenId" @change="aenderungVorhanden = true">
+                                    <option v-for="vorgangstyp in vorgangstypen" :value="vorgangstyp.Id">{{ vorgangstyp.Name }}</option>
+                                </select>
+                            </div>
+                    
+                            <div class="forminput" style="grid-column: 1; grid-row: 3">
+                                <label>Status</label>
+                                <select v-model="vorgang.Status" @change="aenderungVorhanden = true" :style="'background-color:' + vorgangsstatuses.find(status => status.id === vorgang.Status)?.farbe">
+                                    <option v-for="vorgangsstatus in vorgangsstatuses" :value="vorgangsstatus.id" :style="'background-color:' + vorgangsstatus.farbe">{{ vorgangsstatus.bezeichnung }}</option>
+                                </select>
+                            </div>
+                    
+                            <div class="forminput" style="grid-column: 1; grid-row: 4">
+                                <label>Priorität</label>
+                                <select v-model="vorgang.Prioritaet" @change="aenderungVorhanden = true" :style="'background-color:' + prioritaetsfarbe(vorgang.Prioritaet)">
+                                    <option v-for="vorgangsprioritaet in vorgangsprioritaeten" :value="vorgangsprioritaet.id" :style="'background-color:' + vorgangsprioritaet.farbe">{{ vorgangsprioritaet.bezeichnung }}</option>
+                                </select>
+                            </div>
+                        
+                            <!-- Spalte 2 -->
+                            <div class="forminput" style="grid-column: 2; grid-row: 1">
+                                <label>Aktenzeichen</label>
+                                <input v-model="vorgang.Aktenzeichen" @input="aenderungVorhanden = true" />
+                            </div>
+                    
+                            <div class="forminput" style="grid-column: 2; grid-row: 2">
+                                <label>Auftragsdatum</label>
+                                <input type="date" :value="formatiereDatumFuerInput(vorgang.Auftragsdatum)" @change="event => { vorgang.Auftragsdatum = new Date(event.target.value).getTime(); aenderungVorhanden = true; }" />
+                            </div>
+                            
+                            <div class="forminput" style="grid-column: 2; grid-row: 3">
+                                <label>Auftragsnummer</label>
+                                <input v-model="vorgang.Auftragsnummer" @input="aenderungVorhanden = true" />
+                            </div>
+                    
+                            <div class="forminput" style="grid-column: 2; grid-row: 4">
+                                <label>Ansprechpartner</label>
+                                <input v-model="vorgang.Ansprechpartner" @input="aenderungVorhanden = true" />
+                            </div>
+                    
+                            <!-- Spalte 3 -->
+                            <div class="forminput" style="grid-column: 3; grid-row: 1 / 3">
+                                <label>Auftraggeber</label>
+                                <textarea v-model="vorgang.Auftraggeber" @input="aenderungVorhanden = true"></textarea>
+                            </div>
+                    
+                            <div class="forminput" style="grid-column: 3; grid-row: 3 / 5">
+                                <label>Straftaten</label>
+                                <textarea v-model="vorgang.Straftaten" @input="aenderungVorhanden = true"></textarea>
+                            </div>
+                    
+                            <!-- Spalte 4 -->
+                            <div class="forminput" style="grid-column: 4; grid-row: 1">
+                                <label>Datenumfang <sup class="circle" title="Gesamter Speicherbedarf des Vorgangs in GB">?</sup></label>
+                                <input type="number" v-model="vorgang.Datenumfang" @input="aenderungVorhanden = true" />
+                            </div>
+                            
+                            <div class="forminput" style="grid-column: 4; grid-row: 2">
+                                <label>DaSi-Platte <sup class="circle" title="Vorgangsdaten, Bilder, Tools">?</sup></label>
+                                <input v-model="vorgang.Dasiplatte" @input="aenderungVorhanden = true" />
+                            </div>
+                            
+                            <div class="forminput" style="grid-column: 4; grid-row: 3 / 5">
+                                <label>Beschreibung</label>
+                                <textarea v-model="vorgang.Beschreibung" @input="aenderungVorhanden = true"></textarea>
+                            </div>
+
+                            <!-- Aufgabenleiste -->
+                            <aufgabenleiste
+                                aufgabentyp="Vorgangsaufgabe"
+                                :aufgabenstatuses="aufgabenstatuses"
+                                :vorgangstypid="vorgang.VorgangstypenId"
+                                :ziel-url="'vorgangsaufgabe.html?' + vorgangsId + '&'"
+                            ></aufgabenleiste>
+                    
+                        </div>
+
+                    </div>
+                    
+                    <!-- Letzte Tätigkeiten -->
+                    <letzte-taetigkeiten
+                        :anzahl="5"
+                        :vorgang="vorgang"
+                        @aufgabe-angeklickt="behandleAufgabeInTaetigkeitslisteAngeklickt"
+                        @spur-angeklickt="behandleSpurAngeklickt"
+                    ></letzte-taetigkeiten>
+
+                    <!-- Notizen -->
+                    <notizenliste
+                        :vorgangs-id="vorgangsId"
+                    ></notizenliste>
+
+                    <!-- Spurenliste -->
+                    <spurenliste
+                        :vorgang="vorgang"
+                        :zeige-neue-spur-button="true"
+                        @erstelle-spur="erstelleNeueSpur"
+                    ></spurenliste>
+
+                    <!-- Fragen -->
+                    <vorgangsfragen
+                        :vorgangs-id="vorgangsId"
+                    ></vorgangsfragen>
+
+                    <!-- Besonderheiten -->
+                    <besonderheiten
+                        :vorgangs-id="vorgangsId"
+                        @spur-angeklickt="behandleSpurAngeklickt"
+                    ></besonderheiten>
+                    
+                </div>
+
+            </div>
+        
+        </template>
+        
+    </body>
+  
+</html>

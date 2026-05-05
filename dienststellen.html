@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8">
+        <title>Vorgangstypen</title>
+        <link rel="manifest" href="./manifest.json">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <link rel="apple-touch-icon" href="images/forensics.png">
+        <link rel="shortcut icon" href="images/forensics.png">
+        <link rel="stylesheet" href="styles/forensics.css">
+        <script src="js/vue@3.2.26.global.prod.js"></script>
+        <script type="module" src="js/dienststellen.mjs"></script>
+    </head>
+    <body>
+        
+        <!-- Titelzeile -->
+        <titelzeile :fuer-einstellungen="true"></titelzeile>
+
+        <!-- Toolbar -->
+        <einstellungen-toolbar selected-tab="Dienststellen"></einstellungen-toolbar>
+
+        <!-- Anwendungsinhalt -->
+        <div class="app-content">
+
+            <div class="app-content-grid grid-3-col">
+
+                <!-- Liste -->
+                <div v-if="dienststellen" class="panel vertical-navigation" style="grid-column: 1; grid-row: 1 / 3;">
+                    <div class="panel-header">
+                        <div class="panel-title">Dienststellen</div>
+                        <div class="button-group">
+                            <button class="button" @click="behandleNeueDienststelleButtonKlick">+ Neu</button>
+                        </div>
+                    </div>
+        
+                    <div class="button-list">
+                        <button v-for="dienststelle in sortierteDienststellen" :class="{selected: selektierteDienststelle==dienststelle}" @click="selektierteDienststelle = dienststelle">{{ dienststelle.Name }}</button>
+                    </div>
+                </div>
+        
+                <template v-if="selektierteDienststelle">
+
+                    <!-- Details -->
+                    <div class="panel" :class="{changed: aenderungVorhanden}" style="grid-column: 2 / 4; grid-row: 1;">
+                        <div class="panel-header">
+                            <div class="panel-title">{{ selektierteDienststelle.Name }}</div>
+                            <div class="button-group">
+                                <button class="button save" @click="behandleSpeichernButtonKlick">Speichern</button>
+                                <button class="button red" @click="behandleLoeschenButtonKlick">Löschen</button>
+                            </div>
+                        </div>
+                    
+                        <div class="panel-grid grid-2-col">
+                    
+                            <div class="forminput">
+                                <label>Name</label>
+                                <input v-model="selektierteDienststelle.Name" @input="aenderungVorhanden = true"  />
+                            </div>
+                    
+                            <div class="forminput" style="grid-column: 2; grid-row: 1 / 6;">
+                                <label>Disclaimer</label>
+                                <textarea v-model="selektierteDienststelle.Disclaimer" @input="aenderungVorhanden = true"></textarea>
+                            </div>
+                    
+                            <div class="forminput">
+                                <label>Strasse, Hausnummer</label>
+                                <input v-model="selektierteDienststelle.Strasse" @input="aenderungVorhanden = true"  />
+                            </div>
+                    
+                            <div class="forminput">
+                                <label>Postleitzahl</label>
+                                <input v-model="selektierteDienststelle.Postleitzahl" @input="aenderungVorhanden = true"  />
+                            </div>
+                    
+                            <div class="forminput">
+                                <label>Ort</label>
+                                <input v-model="selektierteDienststelle.Ort" @input="aenderungVorhanden = true"  />
+                            </div>
+                    
+                            <div class="forminput">
+                                <label>Logo <sup class="circle" title="Höhe: 50 Pixel, wird Links oben in Anwendung angezeigt">?</sup></label>
+                                <input type="file" accept="image/*" @change="behandleLogoInputSelektiert"  />
+                                <img class="preview" :src="logoBild" />
+                            </div>
+                        
+                        </div>
+        
+                    </div>
+
+                    <!-- Kriminaltechnischer Auswertungsbericht -->
+                    <div class="panel" :class="{changed: aenderungVorhanden}" style="grid-column: 2 / 4; grid-row: 2;">
+                        <div class="panel-header">
+                            <div class="panel-title">Kriminaltechnischer Auswertungsbericht</div>
+                        </div>
+                    
+                        <div class="panel-grid grid-2-col">
+                    
+                            <div class="forminput">
+                                <label>Titel</label>
+                                <input v-model="selektierteDienststelle.KAB_Titel" @input="aenderungVorhanden = true"  />
+                            </div>
+                    
+                            <div class="forminput" style="grid-column: 2; grid-row: 1 / 4;">
+                                <label>Anschreiben <sup class="circle" title="##VORGANG_AUFTRAGSDATUM## fügt das Auftragsdatum des Vorgangs ein">?</sup></label>
+                                <textarea v-model="selektierteDienststelle.KAB_Anschreiben" @input="aenderungVorhanden = true"></textarea>
+                            </div>
+                    
+                            <div class="forminput">
+                                <label>Logo <sup class="circle" title="320 x 90 Pixel, wird rechts oben platziert">?</sup></label>
+                                <input type="file" accept="image/*" @change="behandleKABLogoInputSelektiert"  />
+                                <img class="preview" :src="kabLogoBild" />
+                            </div>
+                    
+                            <div class="forminput">
+                                <label>Barcode <sup class="circle" title="60 x 100 Pixel, wird links unten platziert">?</sup></label>
+                                <input type="file" accept="image/*" @change="behandleKABBarcodeInputSelektiert"  />
+                                <img class="preview" :src="kabBarcodeBild" />
+                            </div>
+                        
+                        </div>
+        
+                    </div>
+       
+                </template>
+            
+            </div>
+
+        </div>
+        
+    </body>
+  
+</html>

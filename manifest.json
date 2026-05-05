@@ -1,0 +1,13 @@
+{
+    "short_name": "Forensics",
+    "name": "Forensics",
+    "icons": [
+        {
+            "src": "images/forensics.png",
+            "type": "image/png",
+            "sizes": "144x144"
+        }
+    ],
+    "start_url": "index.html",
+    "display": "standalone"
+}

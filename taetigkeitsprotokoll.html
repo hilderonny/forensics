@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="manifest" href="./manifest.json">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <link rel="apple-touch-icon" href="images/forensics.png">
+        <link rel="shortcut icon" href="images/forensics.png">
+        <link rel="stylesheet" href="styles/forensics.css">
+        <script>window.PagedConfig = { auto: false };</script>
+        <link href="styles/print.css" rel="stylesheet" type="text/css" />
+        <link href="styles/interface.css" rel="stylesheet" type="text/css" />
+        <script src="js/vue@3.2.26.global.prod.js"></script>
+        <script type="module" src="js/taetigkeitsprotokoll.mjs"></script>
+        <script src="js/paged.polyfill.min.js"></script>
+        <style type="text/css">
+            @page:first {
+                margin: 2cm 2cm 2.5cm 3cm;
+                @bottom-left { content: "LKA Thüringen"; }
+                @bottom-center { content: element(centerfooter); }
+                @bottom-right { content: "Seite " counter(page) " von " counter(pages); }
+            }
+        </style>
+    </head>
+    <body>
+
+        <div v-if="benutzer && notizen && spuren && taetigkeiten && vorgang" class="printable activitylog">
+
+            <h1>Tätigkeitsprotokoll zu Vorgang {{ vorgang.Vorgangsnummer }}</h1>
+
+            <h2>Spuren</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="2">Spur</th>
+                        <th>HDD</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="spur in sortierteSpuren">
+                        <td>{{ spur.Spurnummer }}</td>
+                        <td class="full">{{ spur.Spurname }}</td>
+                        <td>{{ spur.Dasiplatte }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <template v-for="spurMitTaetigkeiten in spurenTaetigkeiten">
+
+                <h2>{{ spurMitTaetigkeiten.spur.Spurnummer }} - {{ spurMitTaetigkeiten.spur.Spurname }}</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Datum</th>
+                            <th>Von</th>
+                            <th>Bis</th>
+                            <th>Tätigkeit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="taetigkeit in spurMitTaetigkeiten.taetigkeiten">
+                            <td>{{ formatiereDatum(taetigkeit.Startzeit) }}</td>
+                            <td>{{ formatiereZeit(taetigkeit.Startzeit) }}</td>
+                            <td>{{ formatiereZeit(taetigkeit.Endzeit) }}</td>
+                            <td class="full mark" v-html="formatiereMarkDown(taetigkeit.Text)"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </template>
+
+            <template v-if="vorgangsTaetigkeiten.length > 0">
+
+                <h2>Sonstige Tätigkeiten</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Datum</th>
+                            <th>Von</th>
+                            <th>Bis</th>
+                            <th>Tätigkeit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="taetigkeit in vorgangsTaetigkeiten">
+                            <td>{{ formatiereDatum(taetigkeit.Startzeit) }}</td>
+                            <td>{{ formatiereZeit(taetigkeit.Startzeit) }}</td>
+                            <td>{{ formatiereZeit(taetigkeit.Endzeit) }}</td>
+                            <td class="full mark" v-html="formatiereMarkDown(taetigkeit.Text)"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </template>
+
+            <template v-if="notizen.length > 0">
+
+                <h2>Notizen</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Datum</th>
+                            <th>Notiz</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="notiz in notizen">
+                            <td>{{ formatiereDatum(notiz.Datum) }}</td>
+                            <td class="full mark" v-html="formatiereMarkDown(notiz.Text)"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </template>
+
+            <h3>Bearbeiter: {{ benutzer.Name }}</h3>
+
+        </div>
+
+    </body>
+
+</html>
