@@ -1,0 +1,15 @@
+{
+  "name": "forensics",
+  "version": "1.0.0",
+  "main": "forensics.mjs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hilderonny/forensics.git"
+  },
+  "author": "Ronny Hildebrandt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hilderonny/forensics/issues"
+  },
+  "homepage": "https://github.com/hilderonny/forensics#readme"
+}

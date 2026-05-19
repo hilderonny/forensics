@@ -2,7 +2,24 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "NodeJS",
+            "name": "Forensics",
+            "env": {
+                "PORT": "8443",
+                "DATA_PATH": "./data",
+                "CRT_FILE": "./server.crt",
+                "KEY_FILE": "./server.key",
+                "TOKEN_SECRET": "hubbelebubbele"
+            },
+            "program": "${workspaceFolder}/forensics.mjs",
+            "runtimeExecutable": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "Arrange separat",
             "args": [
                 "--port", "8443",
                 "--datapath", "../forensics/data",
