@@ -1,0 +1,284 @@
+{
+	"Aufgaben": [
+		{
+			"Id": "1772445649811",
+			"Beschreibung": "- Prüfen, ob die Spur mit der Bezeichnung auch physisch vorliegt\n- Falls nicht, herausfinden, wo sie ist und dies in den **Notizen** vermerken.\n- Falls die Spur bereits als Datensicherung vorliegt, diese beschaffen und in Vorgangsordner kopieren",
+			"Reihenfolge": 1,
+			"Titel": "Vorhandensein prüfen",
+			"Typ": "Spurenaufgabe",
+			"VorgangstypenId": "1777876783210052",
+			"Archiviert": null
+		},
+		{
+			"Id": "1772448467808",
+			"Beschreibung": "Bei Datensicherungen entfällt das Fotografieren.\n\n- Zuerst den Spurenaufkleber fotografieren\n- Alle Seiten fotografieren\n- Detailaufnahmen von Beschädigungen\n- Beschriftungen in Detailaufnahme\n- Gerät öffnen, um Datenträger und interne Beschriftungen zu erkennen\n- Alle enthaltenen Datenträger entnehmen und einzeln fotografieren\n- Genaue **Gerätebezeichnung** von Aufdrucken ermitteln\n",
+			"Reihenfolge": 2,
+			"Titel": "Fotografieren",
+			"Typ": "Spurenaufgabe",
+			"VorgangstypenId": "1777876783210052",
+			"Archiviert": null
+		},
+		{
+			"Id": "1772454881911",
+			"Beschreibung": "Bei Geräten - wie Laptops oder PCs -, die mehrere Datenträger enthalten, sollten diese Datenträger als separate Unterspuren geführt werden, um diese von einander unterscheiden zu können\n\n- Gerät öffnen und alle verbauten oder eingelegten Datenträger als separate Unterspuren anlegen\n- In Besonderheiten vermerken, dass Unterspuren angelegt wurden und die Sicherung dort erfolgt\n",
+			"Reihenfolge": 3,
+			"Titel": "Unterspuren identifizieren",
+			"Typ": "Spurenaufgabe",
+			"VorgangstypenId": "1777876783210052",
+			"Archiviert": null
+		},
+		{
+			"Id": "1772454928561",
+			"Beschreibung": "Die Bestimmung der Geräteart erfolgt durch Sichtung der Geräte, ihrer Aufkleber und durch Internetrecherche.\n",
+			"Reihenfolge": 4,
+			"Titel": "Geräteart feststellen",
+			"Typ": "Spurenaufgabe",
+			"VorgangstypenId": "1777876783210052",
+			"Archiviert": null
+		},
+		{
+			"Id": "1772454989434",
+			"Beschreibung": "# Allgemein\n\n- Anhand vorhandener Aufdrucke\n- In Feld **Seriennummer** in Spur eintragen\n\nFalls sich keine sichtbaren Aufkleber mit Seriennummern auf den Spuren befinden, müssen diese Eigenschaften über **Geräteeigenschaften feststellen** digital ermittelt werden.\n\nUSB-Sticks sollten an forensische Linux-PCs (KALI Linux) angeschlossen werden und so deren Vendor-ID, Product-ID und Seriennummer ausgelesen werden.\n",
+			"Reihenfolge": 5,
+			"Titel": "Seriennummer feststellen",
+			"Typ": "Spurenaufgabe",
+			"VorgangstypenId": "1777876783210052",
+			"Archiviert": null
+		},
+		{
+			"Id": "1772455011171",
+			"Beschreibung": "Die Sicherung der Spuren hängt von deren Geräteart ab.\n\nZiel dieses Schrittes ist es, ein forensisch sicheres Image (E01, UFDR, etc.) der Spur zu erhalten.\n\n# FTK Imager Einstellungen\n\n- Image-Typ: `E01`\n- Case Number: `##CASE_NUMBER##`\n- Evidence Number: `##EVIDENCE_NUMBER##`\n- Unique Description: `##EVIDENCE_NAME##`\n- Examiner: `##USER_NAME##`\n- Verzeichnisname: `##EVIDENCE_FILENAME##`\n- Dateiname: `##EVIDENCE_FILENAME##`\n- Image Fragment Size: `4000 MB`\n- Compression: `9=Smallest`\n- Verify images ...: `aktivieren`\n- Create directory listings ...: `aktivieren`\n\n# Forensic Falcon Einstellungen\n\n- Case/File Name: `##EVIDENCE_FILENAME##`\n- Case ID: `##CASE_ID##`\n- Examiner: `##USER_NAME##`\n- Evidence ID: `##EVIDENCE_NUMBER##`\n- Case Notes: `##EVIDENCE_NAME##`\n- Method: `e01`\n- Segment Size: `4 GB`\n- Compression: `On`\n- HPA: `Yes`\n- DCO/ACS3: `Yes`\n- Action: `Skip`\n- Gran: `1 Sector`\n- Rev Read: `No`\n- Resume: `No`\n- Hash method: `SHA1+MD5`\n- Verify: `Primary`\n",
+			"Reihenfolge": 6,
+			"Titel": "Sichern",
+			"Typ": "Spurenaufgabe",
+			"VorgangstypenId": "1777876783210052",
+			"Archiviert": null
+		},
+		{
+			"Id": "1772456195956",
+			"Beschreibung": "Dieser Schritt umfasst die technische Feststellung von Eigenschaften des Gerätes für die Auswertung.\n\n**Da hierbei möglicherweise Änderungen am Datenbestand vorgenommen werden, sollte dieser Schritt stets nach der Sicherung durchgeführt werden!**\n\n\n- Gerät an Stromversorgung, Bildschirm, Tastatur und Maus anschließen\n- Gerät einschalten und ins BIOS gelangen\n- Alle BIOS-Bildschirmseiten abfotografieren\n- Zeitunterschied BIOS-Zeit - Referenzzeit notieren\n- Gerät vollständig hochfahren und Bildschirme fotografieren\n  - Anmeldebildschirm\n  - Benutzerliste\n  - Desktop des angemeldeten Benutzers\n- Als Benutzer anmelden, bei bedarf Administrator freischalten\n- AIDA-Report erstellen\n- Rechner herunterfahren\n",
+			"Reihenfolge": 7,
+			"Titel": "Geräteeigenschaften feststellen",
+			"Typ": "Spurenaufgabe",
+			"VorgangstypenId": "1777876783210052",
+			"Archiviert": null
+		},
+		{
+			"Id": "1772456280459",
+			"Beschreibung": "##BEGINSECTION## Datenträger\n\nDurch das Sichern an sich ist schon gewährleistet, das der Datenträger funktioniert oder eben Fehler beinhaltet. Ein separater Schritt zur Funktionsprobe ist somit nicht erforderlich.\n\n##ENDSECTION##\n\n##BEGINSECTION## Laptops und Desktop-PCs\n\nDurch das Feststellen der Geräteeigenschaften wird bereits gewährleistet, dass die Geräte funktionieren. Ein separater Schritt zur Funktionsprobe ist somit nicht erforderlich.\n\n##ENDSECTION##\n\n##BEGINSECTION## Mobilgeräte\n\nEs wird davon ausgegangen, dass die Geräte bereits bei der Unterbeauftragung der Sicherung geprüft wurden. Eine Funktionsprobe ist hier demnach `irrelevant`.\n\n##ENDSECTION##\n",
+			"Reihenfolge": 8,
+			"Titel": "Funktionsprobe",
+			"Typ": "Spurenaufgabe",
+			"VorgangstypenId": "1777876783210052",
+			"Archiviert": 1
+		},
+		{
+			"Id": "1772456304198",
+			"Beschreibung": "In diesem Schritt soll die Sicherung der Spur in einem geeigneten Tool derart aufbereitet werden, dass die Vorgangsfragen beantwortet werden können.\n",
+			"Reihenfolge": 9,
+			"Titel": "Aufbereiten",
+			"Typ": "Spurenaufgabe",
+			"VorgangstypenId": "1777876783210052",
+			"Archiviert": null
+		},
+		{
+			"Id": "1777878460200231",
+			"Beschreibung": "1. Vorgangsdaten ausfüllen und Vorgangstyp festlegen\n2. Spuren anlegen\n3. Fragen definieren und zu Spuren zuordnen\n4. Vorgangsverzeichnis auf Untersuchungsrechner vorbereiten\n",
+			"Reihenfolge": 1,
+			"Titel": "Vorbereitung",
+			"Typ": "Vorgangsaufgabe",
+			"VorgangstypenId": "1777876776980159",
+			"Archiviert": null
+		},
+		{
+			"Id": "1777884587138990",
+			"Beschreibung": "Diese Vorgehensweise bezieht sich auf Windows-Systeme und soll erste Anhaltspunkte für weitere Recherchen liefern.\n\n# 1. Tools vorbereiten\n\nFolgende Tools werden für die weitere Bearbeitung benötigt und sollten systemweit installiert (Installer) bzw. portabel verfügbar sein\n\n- FTK Imager (Installer)\n- AmcacheParser (Portable ZIP)\n- Reg Ripper 4.0 (Portable ZIP)\n- Registry Explorer (Portable ZIP)\n- WinPrefetchView (Portable ZIP)\n\n# 2. Systempartition identifizieren\n\n- Mit **FTK Imager** Evidence Item **##EVIDENCE_FILENAME##.E01** öffnen\n- Alle Partitionen untersuchen\n- Diejenige Partition identifizieren, die ein **Windows** Verzeichnis in einem NTFS-Dateisystem enthält, das sollte die Systempartition sein\n\n# 3. Registry-Hives extrahieren\n\nMit **FTK** Imager sollen folgende Registry-Hives in den Ordner **/##CASE_DIRNAME##/Berichte/##EVIDENCE_FILENAME##/RegistryHives** exportiert werden.\n\n- **C:\\Windows\\appcompat\\Programs\\Amcache.hve**\n- **C:\\Windows\\System32\\config\\SAM**\n- **C:\\Windows\\System32\\config\\SECURITY**\n- **C:\\Windows\\System32\\config\\SOFTWARE**\n- **C:\\Windows\\System32\\config\\SYSTEM**\n- **C:\\Users\\Administrator\\NTUSER.DAT** - nach *Administrator\\NTUSER.DAT*\n- **C:\\Users\\Default\\NTUSER.DAT** - nach *Default\\NTUSER.DAT*\n- **C:\\Users\\<BENUTZERNAME>\\NTUSER.DAT** - nach *<BENUTZERNAME>\\NTUSER.DAT*\n\n# 4. Systeminformationen ermitteln\n\n**RegistryExplorer** starten und aus den exportierten Hives folgende Daten ermitteln.\n\n## SOFTWARE\n\n- **Microsoft\\Windows NT\\CurrentVersion\\ProductName**\n  - Windows Produkt und Version\n- **Microsoft\\Windows NT\\CurrentVersion\\ProfileList**\n  - Liste von jemals am System angemeldeter Benutzer (lokale sowie Domänenbenutzer) und deren Benutzerverzeichnisse\n\n## SYSTEM\n\n- **ControlSet001\\Control\\ComputerName\\ComputerName\\ComputerName**\n  - Name des Computers (Hostname)\n- **ControlSet001\\Control\\TimeZoneInformation\\TimeZoneKeyName**\n  - Name der aktiven Zeitzone\n- **ControlSet001\\Control\\TimeZoneInformation\\ActiveTimeBias**\n  - UTC-Offset in negativen Minuten (-120 bedeutet UTC + 2h)\n- **ControlSet001\\Control\\Windows\\ShutdownTime**\n  - Zeitpunkt des letzten sauberen Herunterfahrens\n  - Betrachtung mit \"DataInterpreter\" - Windows FILETIME\n\n## SAM\n\n- **SAM\\Domains\\Account\\Users** - Liste aller lokalen Benutzer und Angabe, ob aktiv oder nicht\n\n",
+			"Reihenfolge": 1,
+			"Titel": "Image Mount",
+			"Typ": "Spurenaufgabe",
+			"VorgangstypenId": "1777876776980159",
+			"Archiviert": null
+		},
+		{
+			"Id": "1777886560334283",
+			"Beschreibung": "Die Timeline stellt eine zeitliche Abfolge aller Ereignisse der untersuchten Spur dar.\nSie dient der späteren Analyse einzelner Ereignisse im zeitlichen und fachlichen Kontext.\n\nDie Erstellung der Timeline mittels **log2timeline** kann je nach Spur mehrere Stunden bis Tage dauern\nund als Resultat eine SQLite-Datenbank mit mehreren Gigabyte Datenumfang ergeben.\n\n##BEGINSECTION## 1. log2timeline installieren\n\n- Windows Subsystem für Linux (WSL) installieren\n- Ubuntu in WSL installieren\n- WSL-Konsole öffnen\n- **Plaso-Tools** (enthalten **log2timeline.py** und **psort.py**) nach [dieser Anleitung](https://plaso.readthedocs.io/en/latest/sources/user/Ubuntu-Packaged-Release.html) installieren\n\n```\nsudo add-apt-repository universe\nsudo add-apt-repository ppa:gift/stable\nsudo apt update\nsudo apt install plaso-tools\n```\n\n##ENDSECTION##\n\n##BEGINSECTION## 2. Relevante Parser identifizieren\n\n**log2timeline** enthält sehr viele Parser für verschiedene Systeme und Zielstellungen.\nMit dem folgenden Befehl wird eine Liste aller verfügbaren Parser und deren Beschreibung ausgegeben.\n\n```\nlog2timeline.py --parsers-list\n```\n\nDiese Parserliste sollte durchforstet werden und diejenigen identifiziert werden, die für den Auftrag,\ndie Spur bzw. das Betriebssystem darauf relevant sein könnten. Lieber zu viele, als zu wenige.\n\nFolgende Parser hatte ich für Windows-Malware-Analysen als relevant eingeschätzt:\n\n- **chrome_cache**: Parser for Google Chrome or Chromium Cache files.\n- **filestat**: Parser for file system stat information.\n- **firefox_cache**: Parser for Mozilla Firefox Cache version 1 file (version 31 or earlier).\n- **firefox_cache2**: Parser for Mozilla Firefox Cache version 2 file (version 32 or later).\n- **java_idx**: Parser for Java WebStart Cache IDX files.\n- **lnk**: Parser for Windows Shortcut (LNK) files.\n- **mcafee_protection**: Parser for McAfee Anti-Virus access protection log files.\n- **mft**: Parser for NTFS $MFT metadata files.\n- **msiecf**: Parser for Microsoft Internet Explorer (MSIE) 4 - 9 cache (index.dat) files.\n- **onedrive_log**: Parser for OneDrive Log files.\n- **opera_global**: Parser for Opera global history (global_history.dat) files.\n- **opera_typed_history**: Parser for Opera typed history (typed_history.xml) files.\n- **prefetch**: Parser for Windows Prefetch File (PF).\n- **recycle_bin**: Parser for Windows $Recycle.Bin $I files.\n- **recycle_bin_info2**: Parser for Windows Recycler INFO2 files.\n- **rplog**: Parser for Windows Restore Point log (rp.log) files.\n- **sqlite**: Parser for SQLite database files.\n- **sqlite/chrome_17_cookies**: Parser for Google Chrome 17 - 65 cookies SQLite database files.\n- **sqlite/chrome_27_history**: Parser for Google Chrome 27 and later history SQLite database files.\n- **sqlite/chrome_66_cookies**: Parser for Google Chrome 66 and later cookies SQLite database files.\n- **sqlite/chrome_8_history**: Parser for Google Chrome 8 - 25 history SQLite database files.\n- **sqlite/chrome_autofill**: Parser for Google Chrome autofill SQLite database (Web Data) files.\n- **sqlite/chrome_extension_activity**: Parser for Google Chrome extension activity SQLite database files.\n- **sqlite/dropbox**: Parser for Dropbox sync history database (sync_history.db) files.\n- **sqlite/edge_load_statistics**: Parser for SQLite database files.\n- **sqlite/firefox_10_cookies**: Parser for Mozilla Firefox cookies SQLite database file version 10.\n- **sqlite/firefox_118_downloads**: Parser for Mozilla Firefox 118 downloads SQLite database (downloads.sqlite) files.\n- **sqlite/firefox_2_cookies**: Parser for Mozilla Firefox cookies SQLite database file version 2.\n- **sqlite/firefox_downloads**: Parser for Mozilla Firefox downloads SQLite database (downloads.sqlite) files.\n- **sqlite/firefox_history**: Parser for Mozilla Firefox history SQLite database (places.sqlite) files.\n- **sqlite/google_drive**: Parser for Google Drive snapshot SQLite database (snapshot.db) files.\n- **sqlite/hangouts_messages**: Parser for Google Hangouts conversations SQLite database (babel.db) files.\n- **sqlite/skype**: Parser for Skype SQLite database (main.db) files.\n- **sqlite/windows_eventtranscript**: Parser for Windows diagnosis EventTranscript SQLite database (EventTranscript.db) files.\n- **sqlite/windows_push_notification**: Parser for Windows 10 push notification SQLite database (wpndatabase.db) files.\n- **sqlite/windows_timeline**: Parser for Windows 10 timeline SQLite database (ActivitiesCache.db) files.\n- **symantec_scanlog**: Parser for Symantec AV Corporate Edition and Endpoint Protection log files.\n- **text**: Parser for text-based log files.\n- **text/gdrive_synclog**: Parser for Google Drive Sync log files.\n- **text/googlelog**: Parser for Google-formatted log files.\n- **text/powershell_transcript**: Parser for PowerShell transcript event.\n- **text/setupapi**: Parser for Windows SetupAPI log files.\n- **text/skydrive_log_v1**: Parser for OneDrive (or SkyDrive) version 1 log files.\n- **text/skydrive_log_v2**: Parser for OneDrive (or SkyDrive) version 2 log files.\n- **text/syslog**: Parser for System log (syslog) files.\n- **text/syslog_traditional**: Parser for Traditional system log (syslog) files.\n- **text/teamviewer_application_log**: Parser for TeamViewer application log file parser..\n- **text/teamviewer_connections_incoming**: Parser for TeamViewer connections_incoming.txt log files.\n- **text/teamviewer_connections_outgoing**: Parser for TeamViewer connections.txt log files.\n- **text/winfirewall**: Parser for Windows Firewall log files.\n- **trendmicro_vd**: Parser for Trend Micro Office Scan Virus Detection log files.\n- **usnjrnl**: Parser for NTFS USN change journal ($UsnJrnl:$J) file system metadata files.\n- **windefender_history**: Parser for Windows Defender scan DetectionHistory files.\n- **winevt**: Parser for Windows EventLog (EVT) files.\n- **winevtx**: Parser for Windows XML EventLog (EVTX) files.\n- **winjob**: Parser for Windows Scheduled Task job (or at-job) files.\n- **winreg**: Parser for Windows NT Registry (REGF) files.\n- **winreg/amcache**: Parser for AMCache (AMCache.hve).\n- **winreg/appcompatcache**: Parser for Application Compatibility Cache Registry data.\n- **winreg/bagmru**: Parser for BagMRU (or ShellBags) Registry data.\n- **winreg/bam**: Parser for Background Activity Moderator (BAM) Registry data.\n- **winreg/ccleaner**: Parser for CCleaner Registry data.\n- **winreg/explorer_mountpoints2**: Parser for Windows Explorer mount points Registry data.\n- **winreg/explorer_programscache**: Parser for Windows Explorer Programs Cache Registry data.\n- **winreg/microsoft_office_mru**: Parser for Microsoft Office MRU Registry data.\n- **winreg/microsoft_outlook_mru**: Parser for Microsoft Outlook search MRU Registry data.\n- **winreg/mstsc_rdp**: Parser for Terminal Server Client Connection Registry data.\n- **winreg/mstsc_rdp_mru**: Parser for Terminal Server Client Most Recently Used (MRU) Registry data.\n- **winreg/network_drives**: Parser for Windows network drives Registry data.\n- **winreg/networks**: Parser for Windows networks (NetworkList) Registry data.\n- **winreg/userassist**: Parser for User Assist Registry data.\n- **winreg/windows_boot_execute**: Parser for Boot Execution Registry data.\n- **winreg/windows_run**: Parser for Run and run once Registry data.\n- **winreg/windows_task_cache**: Parser for Windows Task Scheduler cache Registry data.\n- **winreg/windows_typed_urls**: Parser for Windows Explorer typed URLs Registry data.\n- **winreg/windows_usb_devices**: Parser for Windows USB device Registry data.\n- **winreg/windows_usbstor_devices**: Parser for Windows USB Plug And Play Manager USBStor Registry data.\n- **winreg/winlogon**: Parser for Windows log-on Registry data.\n\n##ENDSECTION##\n\n##BEGINSECTION## 3. log2timeline ausführen\n\n**log2timeline** wird folgendermaßen mit den relevanten Parsern ausgeführt.\nDie Parserliste ist kommagetrennt.\n\nIm Vorgang 98/24 hat dieser Prozess auf einem Rechner mit 32 CPU-Kernen etwa 27 Stunden gedauert.\n\nDie anschließende Frage \"Volume Shadow Snapshots (VSS) were selected also process current volume? [yes, no]\" mit **yes** beantworten\n\nDie Warnungen, die dabei auftreten können, entstehen in der Regel durch die einzelnen Parser, die Datenquellen aus verschiedenen Gründen nicht richtig lesen konnten.\n\nDiese Fehler können durch mich nicht behoben oder umgangen werden und sind somit als \"Geht halt nicht\" zu betrachten.\n\n```\nlog2timeline.py --partitions all --volumes all --vss-stores all --status-view window --parsers \"chrome_cache,filestat,firefox_cache,firefox_cache2,java_idx,lnk,mcafee_protection,mft,msiecf,onedrive_log,opera_global,opera_typed_history,prefetch,recycle_bin,recycle_bin_info2,rplog,sqlite,sqlite/chrome_17_cookies,sqlite/chrome_27_history,sqlite/chrome_66_cookies,sqlite/chrome_8_history,sqlite/chrome_autofill,sqlite/chrome_extension_activity,sqlite/dropbox,sqlite/edge_load_statistics,sqlite/firefox_10_cookies,sqlite/firefox_118_downloads,sqlite/firefox_2_cookies,sqlite/firefox_downloads,sqlite/firefox_history,sqlite/google_drive,sqlite/hangouts_messages,sqlite/skype,sqlite/windows_eventtranscript,sqlite/windows_push_notification,sqlite/windows_timeline,symantec_scanlog,text,text/gdrive_synclog,text/googlelog,text/powershell_transcript,text/setupapi,text/skydrive_log_v1,text/skydrive_log_v2,text/syslog,text/syslog_traditional,text/teamviewer_application_log,text/teamviewer_connections_incoming,text/teamviewer_connections_outgoing,text/winfirewall,trendmicro_vd,usnjrnl,windefender_history,winevt,winevtx,winjob,winreg,winreg/amcache,winreg/appcompatcache,winreg/bagmru,winreg/bam,winreg/ccleaner,winreg/explorer_mountpoints2,winreg/explorer_programscache,winreg/microsoft_office_mru,winreg/microsoft_outlook_mru,winreg/mstsc_rdp,winreg/mstsc_rdp_mru,winreg/network_drives,winreg/networks,winreg/userassist,winreg/windows_boot_execute,winreg/windows_run,winreg/windows_task_cache,winreg/windows_typed_urls,winreg/windows_usb_devices,winreg/windows_usbstor_devices,winreg/winlogon\" --storage-file /mnt/w/##CASE_DIRNAME##/Berichte/##EVIDENCE_FILENAME##/log2timeline.plaso /mnt/w/##CASE_DIRNAME##/DaSi/##EVIDENCE_FILENAME##/##EVIDENCE_FILENAME##.E01\n```\n\n##ENDSECTION##\n\n##BEGINSECTION## 4. Durchsuchbare CSV-Datei erstellen\n\nFür eine schnelle Suche nach Zeichenketten innerhalb der Timeline bietet es sich an, diese in das CSV-Format zu konvertieren.\nDabei wird zwar eine sehr große CSV-Datei erzeugt (> 10 GB), diese kann aber mit Notepad++ recht komfortabel nach Stichworten durchsucht werden.\n\nDer Vorgang dauert etwa 2 Stunden.\n\n```\npsort.py -o dynamic -w /mnt/w/##CASE_DIRNAME##/Berichte/##EVIDENCE_FILENAME##/log2timeline-dynamic.csv /mnt/w/##CASE_DIRNAME##/Berichte/##EVIDENCE_FILENAME##/log2timeline.plaso\n```\n\n##ENDSECTION##\n",
+			"Reihenfolge": 2,
+			"Titel": "Timeline",
+			"Typ": "Spurenaufgabe",
+			"VorgangstypenId": "1777876776980159",
+			"Archiviert": null
+		},
+		{
+			"Id": "1777886612869807",
+			"Beschreibung": "Bei dieser Aufgabe werden Hinweise auf das erste Auftreten von Malware auf dem System gesucht.\n\n\n##BEGINSECTION## Gibt es Hinweise auf unübliche Programme, die ausgeführt wurden?\n\nHierbei werden folgende Quellen untersucht:\n\n- **Prefetch**: Ausgeführte Programme\n- **Amcache**: Zwischengespeicherte Programme\n- **UserAssist**: Vom Benutzer direkt gestartete Programme oder Verknüpfungen\n\nIn jedem Schritt erfolgt die Untersuchung nach ungewöhnlichen Datenamen oder Pfaden.\nAuf folgende Pfadbestandteile sollte dabei besondere Aufmerksamkeit gelegt werden:\n\n- `Temp`\n- `Public`\n- `Download`\n- UNC-Pfade\n- Wechselmedien\n\n# Prefetch\n\nWindows legt Prefetch-Dateien an, wenn ein Programm zum ersten Mal von einem bestimmten Pfad ausgeführt wird, um spätere Starts zu beschleunigen.\n\n- Mit **FTK Imager** alle *.pf*-Dateien aus dem Ordner `C:\\Windows\\Prefetch` der Spur nach **##CASE_DIRNAME##/Berichte/##EVIDENCE_FILENAME##/Prefetch** exportieren\n- **WinPrefetchView** ausführen\n- Ordner **##CASE_DIRNAME##/Berichte/##EVIDENCE_FILENAME##/Prefetch** als Quelle wählen\n- Dateien einzeln sichten und bewerten\n  - Dateien mit **RunCount = 0** können ignoriert werden, diese haben keine Aussagekraft\n  - Auf ungewöhnliche Pfade achten\n  - Auf ungewöhnliche Dateinamen achten\n\n# Amcache\n\nAmcache ist ein Registry-Hive, der Meta-Informationen zu Programmen sammelt.\nHier können unter Umständen Hinweise auf ungwöhnliche Programme enthalten sein.\nEin Indiz für die Auswührung eines Programms ist das allerdings nicht.\n\n- Folgenden Befehl auf Kommandozeile im AmcacheParser-Verzeichnis ausführen, dabei werden einige CSV-Dateien erstellt\n\n```\nAmcacheParser.exe -f W:\\##CASE_DIRNAME##\\Berichte\\##EVIDENCE_FILENAME##\\RegistryHives\\Amcache.hve -i --csv W:\\##CASE_DIRNAME##\\Berichte\\##EVIDENCE_FILENAME##\\Amcache\\\n```\n\n- CSV-Dateien einzeln sichten und auf ungewöhnliche Pfade und Dateinamen achten\n\n# UserAssist\n\nUserAssist ist ein Registry-Hive, der in **NTUSER.DAT** für jeden Benutzer gespeichert wird.\nHierin sind alle Programmausführungen durch den jeweiligen Benutzer gespeichert.\n\n- Mit **Reg Ripper** für jeden Benutzer die Programmausführungen extrahieren lassen\n\n```\nrip.exe -r W:\\##CASE_DIRNAME##\\Berichte\\##EVIDENCE_FILENAME##\\RegistryHives\\<BENUTZERNAME>\\NTUSER.DAT -p userassist > W:\\##CASE_DIRNAME##\\Berichte\\##EVIDENCE_FILENAME##\\regripper_userassist_<BENUTZERNAME>.txt\n```\n\n- Die generierte Textdatei analysieren und auf ungewöhnliche Programmstarts hin untersuchen\n\n##ENDSECTION##\n\n\n##BEGINSECTION## Gibt es benutzerspezifische Programmdateien, die eigenartige Namen haben?\n\nProgramme legen ihre Daten üblicherwiese unter **C:\\ProgramData** (systemweit gültige Daten) oder unter **C:\\Users\\<BENUTZERNAME>\\AppData** (für benutzerspezifische Daten) ab.\n\nLetztere Ordner benötigen keine speziellen Zugriffsrechte, sodass auch Malware in diese Ordner schreiben kann.\n\nDiese Ordner sollen rekursiv mit **FTK Imager** analysiert werden und auf Besonderheiten geachtet werden:\n\n- Unterordner, die nicht zum übergeordneten Ordner passen. Z.B. *Microsoft*/**Oeeux**\n- Viele Dateien mit derselben Größe und demselben Hash-Wert\n- Kryptische Dateinamen\n- Dateiendungen `.EXE`, `.DLL`, `.PS1`, `.VBS`, `.JS`\n\n##ENDSECTION##\n\n\n##BEGINSECTION## Befinden sich Hinweise im Downloads-Ordner?\n\nFür jeden Benutzer soll mit **FTK Imager** dessen Downloads-Ordner (**C:\\Users\\<BENUTZERNAME>\\Downloads**) nach unüblichen Dateien durchsucht werden.\n\n- Dateien mit unüblichen kryptischen Dateinamen\n- Verschlüsselte Dateien\n- Gepackte Dateien, die beim Öffnen ein Passwort verlangen\n\nFalls es den Download-Ordner für einen Benutzer nicht gibt, kann es sich um einen Domänenbenutzer handeln.\n\nIn diesem Fall muss man mit **RegRipper** folgenden Schlüssel des **NTUSERS.DAT** Hives des betroffenen Benutzers untersuchen, um festzustellen, wo der Ordner gespeichert ist.\n\n- **SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders**\n- Der Downloadsordner hat den Schlüssel `{374DE290-123F-4565-9164-39C4925E467B}`\n\n##ENDSECTION##\n",
+			"Reihenfolge": 3,
+			"Titel": "Erstes Auftreten",
+			"Typ": "Spurenaufgabe",
+			"VorgangstypenId": "1777876776980159",
+			"Archiviert": null
+		},
+		{
+			"Id": "1777886662051872",
+			"Beschreibung": "Hierbei geht es darum, herauszufinden, um welches Malware es sich bei verdächtigen Dateien handelt.\n\n##BEGINSECTION## 1. Verdächtige Datei analysieren lassen\n\n- Verdächtige Datei mit **FTK Imager** nach **##CASE_DIRNAME##/Berichte/##EVIDENCE_FILENAME##/Malware** exportieren\n- Verdächtige Datei zu https://www.virustotal.com hochladen und dort analysieren lassen\n- Tabs und Full Reports der VirusTotal-Ergebnisse einzeln als PDF-Dateien **##CASE_DIRNAME##/Berichte/##EVIDENCE_FILENAME##/Malware** abspeichern (Helles Layout, Querformat, alles vorher aufklappen)\n  - Tab *Detection*: **<DATEINAME>_VirusTotal_Detection.pdf**\n  - Tab *Details*: **<DATEINAME>_VirusTotal_Details.pdf**\n  - Tab *Relations*: **<DATEINAME>_VirusTotal_Relations.pdf**\n  - Tab *Behavior*: **<DATEINAME>_VirusTotal_Behavior.pdf**\n  - Tab *Community*: **<DATEINAME>_VirusTotal_Community.pdf**\n  - Full Report *CAPE Sandbox*: **<DATEINAME>_VirusTotal_Behavior_CAPE_Sandbox.pdf**\n  - Full Report *Zenbox*: **<DATEINAME>_VirusTotal_Behavior_Zenbox.pdf**\n\n  ##ENDSECTION##\n\n\n##BEGINSECTION## 2. Erkenntnisse aus Analyse gewinnen\n\nDie Analyseergebnisse sollen dahingehend untersucht werden, dass folgende Fragen beantwortet werden können.\n\n- Wie erfolgt die Infektion?\n- Kommuniziert die Malware mit dem Internet?\n- Ist Datenextraktion ein Ziel?\n- Werden Benutzereingaben erfasst?\n- Ist ein Ziel die Verschlüsselung und Erpressung?\n- Wie setzt sich die Malware im System fest?\n- Lädt die Malware Daten und Funktionen nach?\n- Kann die Malware ihre Rechte erweitern?\n\n##ENDSECTION##\n",
+			"Reihenfolge": 4,
+			"Titel": "Identifizierung",
+			"Typ": "Spurenaufgabe",
+			"VorgangstypenId": "1777876776980159",
+			"Archiviert": null
+		},
+		{
+			"Id": "1777886691930827",
+			"Beschreibung": "Wenn eine Malware auf der Spur gefunden wurde, soll in diesem Schritt herausgefunden werden, wie diese auf die Spur gekommen ist.\n\nDazu wird die Timeline beginnend mit dem Zeitpunkt des ersten Auftretens des verdächtigen Programms rückwärts analysiert.\nDadurch kann es vorkommen, dass man von einem verdächtigen Programm zu einem anderen kommt, da Malware oft in mehreren\nStufen ausgeführt wird (Heruntergeladenes Script lädt Programm nach, welches wiederum Programme nachlädt)\n\nDabei ist auf folgende Punkte zu achten.\n\n##BEGINSECTION## Wann wurde die verdächtige Datei erstellt und was geschah im selben Zeitraum?\n\nWenn Malware ausgeführt wird, dann führt sie oft mehrere Aktionen kurz nacheinander aus.\nDas zeigt sich in der Timeline daran, dass viele Einträge in derselben Sekunde passieren.\n\nHieraus kann man beispielsweise darauf schließen, ob eine verdächtige Datei durch das \nautomatische Kopieren einer anderen, bisher nicht betrachteten Datei entstanden ist.\n\n##ENDSECTION##\n\n##BEGINSECTION## Wurden Programme mit unüblichen Dateinamen ausgeführt?\n\nIn der Timeline werden Zugriffe auf Dateien protokolliert.\nDas können auch Ausführungen von Programmen sein.\n\nEs sollte auf Zugriffe auf unübliche Dateinamen geachtet werden und diese mit einem HEX-Editor betrachtet werden.\nWenn im Magic Byte beispielsweise `4D 5A (MZ)` steht, handelt es sich um ein ausführbares Programm.\n\n##ENDSECTION##\n\n##BEGINSECTION## Wie entstanden die verdächtigen Dateien und woher kamen sie?\n\nIn der Timeline gibt der Kontext um die Erstellung einer verdächtigen Datei herum Hinweise darauf, wo diese her kommt.\n\n- Kopieren von einem externen Datenträger\n- Download von einer Webseite\n- Erhalt einer E-Mail (auch über Online-Portale wie GMail)\n\n##ENDSECTION##\n",
+			"Reihenfolge": 5,
+			"Titel": "Angriffsvektor",
+			"Typ": "Spurenaufgabe",
+			"VorgangstypenId": "1777876776980159",
+			"Archiviert": null
+		},
+		{
+			"Id": "1777886722465241",
+			"Beschreibung": "Malware erstellt in der Regel Autostart-Einträge, um beim Neustart des infizierten Rechners\nautomatisch wieder gestartet zu werden.\n\n##BEGINSECTION## Timeline abwärts untersuchen\n\nDie Timeline sollte nach dem Auftreten der verdächtigen Dateien abwärts (also neuer) untersucht werden.\n\nManche Malware wartet auch erst ein paar Tage, bis sie aktiv wird, um Virenscanner zu verwirren.\nAber auch dann weisen Timeline-Einträge im Millisekundentakt auf ihr Wirken hin.\nFolgende Fragen sollten beantwortet werden.\n\n- Wurden Programme aus dem Internet nachgeladen und abgespeichert?\n- Wurden Skripte ausgeführt?\n  - Ein guter Hinweis ist ein `powershell` mit dem Parameter `-ENC`, was auf die Ausführung eines als Base64-Zeichenkette übergebenes Skript hinweist\n- Wurden Scheduled Tasks angelegt?\n- Wurden Rechte erweitert?\n\n##ENDSECTION##\n\n##BEGINSECTION## Registrierungs-Hives nach Diensten und Autostart-Einträgen durchsuchen\n\nInteressant sind dabei vor allem diese Registry-Einträge:\n\n- Hive **SOFTWARE**\n  - `Microsoft\\Windows\\CurrentVersion\\Run`\n  - `Microsoft\\Windows\\CurrentVersion\\RunOnce`\n  - `Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Run`\n  - `Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\RunOnce`\n- Hive **NTUSER.DAT**\n  - `Software\\Microsoft\\Windows\\CurrentVersion\\Run`\n  - `Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce`\n\n##ENDSECTION##\n",
+			"Reihenfolge": 6,
+			"Titel": "Einnistung",
+			"Typ": "Spurenaufgabe",
+			"VorgangstypenId": "1777876776980159",
+			"Archiviert": null
+		},
+		{
+			"Id": "1777886764520089",
+			"Beschreibung": "Anhand eines E01 Images kann man nur schwer Ausleitungen feststellen.\nDie dazu notwendigen Netzwerkverbindungen und Requests werden schlicht nicht protokolliert.\n\nFolgende Maßnahmen könnte man durchführen, die aber auch nur Indizien aufzeigen:\n\n- RAM-Dump (falls vorhanden) nach Netzwerkverbindungen hin untersuchen\n- E01-Sicherung virtualisieren\n  - Einmal den kompromittierten Host selbst virtualisieren\n  - Dann aber auch das Netzwerk nachstellen\n  - virtuellen Router einrichten, der Netzwerktraffik protokolliert (eventuell virtuelles WLAN mit Wireshark)\n  - Ziel-Hosts virtualisieren und Responses emulieren\n  - Laufen lassen und nachsehen, was versendet wird\n- Timeline analysieren und nach Dateizugriffen auf relevante Dateien suchen\n- E01 mit IPED oder Axiom analysieren und Zugriffszeiten auf relevante Dateien korrelieren\n\nFür die letzten beiden Punkte muss man vorher relevante Dateien definieren.\nDas könnten Dokumente aller Art oder andere Dateien mit persönlichen oder wichtigen Inhalten sein.\nDas hängt ganz vom Benutzer ab.\n\nAnschließend prüft man, welche dieser Dateien wann zugegriffen wurden und versucht eine Plausibilitätsprüfung:\n\n- Kann der Benutzer selbst die Öffnung verursacht haben?\n- Wurden viele verschiedene Dateien so kurz hintereinander geöffnet, dass es unwahrscheinlich ist, dass dies der Benutzer getan hat?\n- ABER: Kann auch durch Massenkopiervorgänge durch den Benutzer geschehen sein\n\nLetztendlich hängt die Aussagekraft davon ab, wie stark die Verwendung durch den Benutzer die Zugriffe durch\ndie Malware zeitlich verschleiert.\n",
+			"Reihenfolge": 7,
+			"Titel": "Ausleitung",
+			"Typ": "Spurenaufgabe",
+			"VorgangstypenId": "1777876776980159",
+			"Archiviert": null
+		},
+		{
+			"Id": "1777887242009323",
+			"Beschreibung": "Jede Spur wird einzeln bearbeitet und die dort enthaltenen Aufgaben nacheinander ausgeführt.",
+			"Reihenfolge": 2,
+			"Titel": "Spuren bearbeiten",
+			"Typ": "Vorgangsaufgabe",
+			"VorgangstypenId": "1777876776980159",
+			"Archiviert": null
+		},
+		{
+			"Id": "1777887280919870",
+			"Beschreibung": "Die gestellten Fragen zum Vorgang sollen einzeln beantwortet werden.\n\nDarauf eingehen:\n- wo auf der Übergabefestplatte die Auswertung zu finden ist\n- was sonst noch auf der Festplatte ist\n- welche Besonderheiten zu beachten sind\n\nFalls Medientranskriptionen durchgeführt wurden, folgenden Satz in Antwort einschließen:\n\n`Die Prüfung der Korrektheit der Transkriptionen und Übersetzungen obliegt dem Auftraggeber.`\n",
+			"Reihenfolge": 3,
+			"Titel": "Fragen beantworten",
+			"Typ": "Vorgangsaufgabe",
+			"VorgangstypenId": "1777876776980159",
+			"Archiviert": null
+		},
+		{
+			"Id": "1777887424971779",
+			"Beschreibung": "1. Datenträger zur Übergabe an den Auftraggeber beschaffen\n2. Auswertungen je nach Auftrag auf Übergabedatenträger kopieren\n3. Auswertebericht generieren\n4. Datenträger, Spuren und Auswertebericht an Auftraggeber übergeben\n5. Übergabezeitpunkt und entgegennehmende Person protokollieren\n6. Jede Spur als \"Herausgegeben\" markieren\n",
+			"Reihenfolge": 4,
+			"Titel": "Herausgabe",
+			"Typ": "Vorgangsaufgabe",
+			"VorgangstypenId": "1777876776980159",
+			"Archiviert": null
+		},
+		{
+			"Id": "1777887460892046",
+			"Beschreibung": "1. Tätigkeitprotokoll generieren\n2. Zeitnachweis generieren\n3. Auswertungen und generierte Dokumente auf Sicherungsfestplatte kopieren\n4. Sicherungsfestplatte verwahren\n5. Untersuchungsrechner bereinigen\n6. Vorgang als abgeschlossen markieren\n",
+			"Reihenfolge": 5,
+			"Titel": "Vorgang abschließen",
+			"Typ": "Vorgangsaufgabe",
+			"VorgangstypenId": "1777876776980159",
+			"Archiviert": null
+		},
+		{
+			"Id": "1777887525338337",
+			"Beschreibung": "1. Vorgangsdaten ausfüllen und Vorgangstyp festlegen\n2. Spuren anlegen\n3. Fragen definieren und zu Spuren zuordnen\n4. Vorgangsverzeichnis auf Untersuchungsrechner vorbereiten\n",
+			"Reihenfolge": 1,
+			"Titel": "Vorbereitung",
+			"Typ": "Vorgangsaufgabe",
+			"VorgangstypenId": "1777876783210052",
+			"Archiviert": null
+		},
+		{
+			"Id": "1777887544934844",
+			"Beschreibung": "- Jede Spur einzeln fotografieren, dabei Detailfotos machen von\n  - **Eingelegten Unterspuren** - Diese gleich als Unterspuren anlegen\n  - **Seriennummern**\n  - **Beschädigungen**\n- Fotos in Vorgangsordner kopieren",
+			"Reihenfolge": 2,
+			"Titel": "Spuren fotografieren",
+			"Typ": "Vorgangsaufgabe",
+			"VorgangstypenId": "1777876783210052",
+			"Archiviert": null
+		},
+		{
+			"Id": "1777887564416744",
+			"Beschreibung": "- Jede Spur und Unterspur einzeln in deren **Aufgaben** (dort auch **Tätigkeiten** protokollieren)\n  - **Sichern**\n  - **Geräteeigenschaften feststellen**\n  - **Funktionsprobe durchführen**\n- Sicherungen auf Sicherungs-Platte kopieren",
+			"Reihenfolge": 3,
+			"Titel": "Spuren sichern",
+			"Typ": "Vorgangsaufgabe",
+			"VorgangstypenId": "1777876783210052",
+			"Archiviert": null
+		},
+		{
+			"Id": "1777887596738439",
+			"Beschreibung": "Für den Fall, dass einige der Spuren durch andere Sachbearbeiter bearbeitet werden müssen, sollten dafür separate Vorgänge erstellt werden.",
+			"Reihenfolge": 4,
+			"Titel": "Unterbeauftragung",
+			"Typ": "Vorgangsaufgabe",
+			"VorgangstypenId": "1777876783210052",
+			"Archiviert": null
+		},
+		{
+			"Id": "1777887629510360",
+			"Beschreibung": "Je nach Datenumfang werden die Sicherungen der Spuren entweder mit dieser Aufgabe als ein Projekt aufbereitet oder in den Aufgaben der jeweiligen Spuren als separate Projekte.",
+			"Reihenfolge": 5,
+			"Titel": "Sicherungen aufbereiten",
+			"Typ": "Vorgangsaufgabe",
+			"VorgangstypenId": "1777876783210052",
+			"Archiviert": 0
+		},
+		{
+			"Id": "1777887644405000",
+			"Beschreibung": "- Für jede Spur einzeln (sofern zutreffend)\n    - Funktionsprobe\n    - BIOS-Untersuchung\n    - Feststellung Zeitabweichung",
+			"Reihenfolge": 6,
+			"Titel": "Funktionsprobe",
+			"Typ": "Vorgangsaufgabe",
+			"VorgangstypenId": "1777876783210052",
+			"Archiviert": 1
+		},
+		{
+			"Id": "1777887687180627",
+			"Beschreibung": "Die gestellten Fragen zum Vorgang sollen einzeln beantwortet werden.\n\nDarauf eingehen:\n- wo auf der Übergabefestplatte die Auswertung zu finden ist\n- was sonst noch auf der Festplatte ist\n- welche Besonderheiten zu beachten sind\n\nFalls Medientranskriptionen durchgeführt wurden, folgenden Satz in Antwort einschließen:\n\n`Die Prüfung der Korrektheit der Transkriptionen und Übersetzungen obliegt dem Auftraggeber.`",
+			"Reihenfolge": 7,
+			"Titel": "Fragen beantworten",
+			"Typ": "Vorgangsaufgabe",
+			"VorgangstypenId": "1777876783210052",
+			"Archiviert": null
+		},
+		{
+			"Id": "1777887746450784",
+			"Beschreibung": "1. Datenträger zur Übergabe an den Auftraggeber beschaffen\n2. Auswertungen je nach Auftrag auf Übergabedatenträger kopieren\n3. Auswertebericht generieren\n4. Datenträger, Spuren und Auswertebericht an Auftraggeber übergeben\n5. Übergabezeitpunkt und entgegennehmende Person protokollieren\n6. Jede Spur als \"Herausgegeben\" markieren\n",
+			"Reihenfolge": 8,
+			"Titel": "Herausgabe",
+			"Typ": "Vorgangsaufgabe",
+			"VorgangstypenId": "1777876783210052",
+			"Archiviert": null
+		},
+		{
+			"Id": "1777887760386377",
+			"Beschreibung": "1. Tätigkeitprotokoll generieren\n2. Zeitnachweis generieren\n3. Auswertungen und generierte Dokumente auf Sicherungsfestplatte kopieren\n4. Sicherungsfestplatte verwahren\n5. Untersuchungsrechner bereinigen\n6. Vorgang als abgeschlossen markieren\n",
+			"Reihenfolge": 9,
+			"Titel": "Vorgang abschließen",
+			"Typ": "Vorgangsaufgabe",
+			"VorgangstypenId": "1777876783210052",
+			"Archiviert": null
+		}
+	],
+	"Vorgangstypen": [
+		{
+			"Id": "1777876776980159",
+			"Name": "Malware-Analyse"
+		},
+		{
+			"Id": "1777876783210052",
+			"Name": "Aufbereitung"
+		}
+	]
+}
