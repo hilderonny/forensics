@@ -12,14 +12,14 @@ RUN apt update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Arrange holen
-RUN git clone https://github.com/hilderonny/arrange.git ./ && npm install
+# Alles kopieren
+COPY . .
 
-# HTML kopieren
-COPY . ./html
+# Abhängigkeiten installieren
+RUN npm ci
 
 # Anwendungsport freigeben
 EXPOSE 8443
 
 # Arrange starten und Forensics einbinden
-CMD ["node", "./server.mjs", "--port", "8443", "--datapath", "./data", "--crtfile", "./server.crt", "--keyfile", "./server.key", "--tokensecret", "hubbelebubbele", "--htmlpath", "/=./html"]
+CMD ["node", "--experimental-sqlite", "./ForensicsServer.mjs"]

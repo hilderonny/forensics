@@ -3,34 +3,8 @@
     "configurations": [
         {
             "name": "Forensics",
-            "env": {
-                "PORT": "8443",
-                "DATA_PATH": "./data",
-                "CRT_FILE": "./server.crt",
-                "KEY_FILE": "./server.key",
-                "TOKEN_SECRET": "hubbelebubbele"
-            },
-            "program": "${workspaceFolder}/forensics.mjs",
+            "program": "${workspaceFolder}/ForensicsServer.mjs",
             "runtimeExecutable": "node",
-            "request": "launch",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "type": "node"
-        },
-        {
-            "name": "Arrange separat",
-            "args": [
-                "--port", "8443",
-                "--datapath", "../forensics/data",
-                "--crtfile", "./server.crt",
-                "--keyfile", "./server.key",
-                "--tokensecret", "hubbelebubbele",
-                "--htmlpath", "/=../forensics"
-            ],
-            "program": "${workspaceFolder}/../arrange/server.mjs",
-            "runtimeExecutable": "node",
-            "cwd": "${workspaceFolder}/../arrange",
             "request": "launch",
             "skipFiles": [
                 "<node_internals>/**"

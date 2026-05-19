@@ -1,12 +1,5 @@
 # forensics
 
-DOCKER!
-
-
-
-
-
-
 ## Verwendung mit Docker lokal
 
 ```sh

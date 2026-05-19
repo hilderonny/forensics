@@ -1,7 +1,7 @@
 {
   "name": "forensics",
   "version": "1.0.0",
-  "main": "forensics.mjs",
+  "main": "ForensicsServer.mjs",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hilderonny/forensics.git"
@@ -11,5 +11,8 @@
   "bugs": {
     "url": "https://github.com/hilderonny/forensics/issues"
   },
-  "homepage": "https://github.com/hilderonny/forensics#readme"
+  "homepage": "https://github.com/hilderonny/forensics#readme",
+  "dependencies": {
+    "@hilderonny/arrange": "^7.0.0"
+  }
 }
