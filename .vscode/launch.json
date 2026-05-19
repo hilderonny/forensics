@@ -2,18 +2,9 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "NodeJS",
-            "args": [
-                "--port", "8443",
-                "--datapath", "../forensics/data",
-                "--crtfile", "./server.crt",
-                "--keyfile", "./server.key",
-                "--tokensecret", "hubbelebubbele",
-                "--htmlpath", "/=../forensics"
-            ],
-            "program": "${workspaceFolder}/../arrange/server.mjs",
+            "name": "Forensics",
+            "program": "${workspaceFolder}/ForensicsServer.mjs",
             "runtimeExecutable": "node",
-            "cwd": "${workspaceFolder}/../arrange",
             "request": "launch",
             "skipFiles": [
                 "<node_internals>/**"
