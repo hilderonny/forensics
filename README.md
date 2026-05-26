@@ -108,3 +108,42 @@ docker run -d --name forensics -p 8443:8443 -v ./data:/app/data hilderonny2024/f
 Im Anschluss ist die Instanz über https://localhost:8443 erreichbar.
 
 Die Anwendungsdaten werden dabei auf dem Host im Verzeichnis `./data` gespeichert.
+
+# Installation als Linux-Hintergrunddienst
+
+```sh
+# NodeJS installieren
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
+\. "$HOME/.nvm/nvm.sh"
+nvm install 24
+
+# Repository klonen
+git clone https://github.com/hilderonny/forensics.git
+
+# Abhängigkeiten installieren
+cd forensics
+npm install
+
+# Hintergrunddienst einrichten und starten
+sudo nano /etc/systemd/system/forensics.service
+sudo systemctl enable forensics
+sudo systemctl start forensics
+```
+
+Danach ist Forensics unter https://SERVER:8443 erreichbar.
+
+## /etc/systemd/system/forensics.service
+
+```
+[Unit]
+Description=forensics
+
+[Service]
+ExecStart=/######PFAD_ZU_NODE###### --experimental-sqlite /######PFAD_ZU_FORENSICS######/ForensicsServer.mjs
+WorkingDirectory=/######PFAD_ZU_FORENSICS######
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+```
