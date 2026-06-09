@@ -123,9 +123,9 @@ const vueApp = {
             await this.ladeVorgangsaufgabendefinitionen()
             this.aenderungVorhanden = true
         },
-        behandleSpurAngeklickt(spur) {
-            if (!spur) return
-            location.href = `spurendetails.html?${this.vorgangsId}&${spur.Id}`
+        behandleSpurAngeklickt(spurenId) {
+            if (!spurenId) return
+            location.href = `spurendetails.html?${this.vorgangsId}&${spurenId}`
         },
         async erstelleNeueSpur() {
             const neueSpur = Hilfsfunktionen.bereiteNeueSpurVor()

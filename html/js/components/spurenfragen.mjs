@@ -11,7 +11,7 @@ export default {
         spurenId: String,
     },
     async created() {
-        this.fragen = await Spurenfrage.query(`SELECT * FROM Spurenfragen JOIN Vorgangsfragen ON Vorgangsfragen.Id = Spurenfragen.VorgangsfragenId WHERE SpurenId = '${this.spurenId}' ORDER BY Vorgangsfragen.Nummer DESC`)
+        this.fragen = await Spurenfrage.query(`SELECT * FROM Spurenfragen JOIN Vorgangsfragen ON Vorgangsfragen.Id = Spurenfragen.VorgangsfragenId WHERE SpurenId = '${this.spurenId}' ORDER BY CAST(Vorgangsfragen.Nummer AS INTEGER) ASC`)
     },
     methods: {
         formatiereMarkDown: Hilfsfunktionen.formatiereMarkDown,
@@ -25,12 +25,14 @@ export default {
             <table class="panel-table">
                 <thead>
                     <tr>
+                        <th>Nummer</th>
                         <th>Frage</th>
                         <th>Antwort</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="frage in fragen">
+                        <td>{{ frage.Nummer }}</td>
                         <td class="mark" v-html="formatiereMarkDown(frage.Frage)"></td>
                         <td class="mark" v-html="formatiereMarkDown(frage.Antwort)"></td>
                     </tr>
