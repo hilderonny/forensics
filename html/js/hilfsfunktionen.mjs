@@ -425,11 +425,7 @@ function verzeichnisnameFuerText(text) {
 }
 
 function verzeichnisnameFuerVorgang(vorgang) {
-    if (!vorgang.Vorgangsnummer) return ''
-    const nummernteile = vorgang.Vorgangsnummer.split('-')
-    if (nummernteile.length < 3) return ''
-    const [nummer, jahr] = nummernteile[2].split('/')
-    return jahr + '-' + nummer
+    return verzeichnisnameFuerText(vorgang.Vorgangsnummer)
 }
 
 export {
