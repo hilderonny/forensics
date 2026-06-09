@@ -28,10 +28,10 @@
         <!-- Anwendungsinhalt -->
         <div v-if="spur && vorgang" class="app-content">
 
-            <div class="app-content-grid grid-4-col">
+            <div class="app-content-grid grid-6-col">
 
                 <!-- Details -->
-                <div class="panel v-r-task-details-panel" :class="{changed: aenderungVorhanden}" style="grid-column: 1 / 5; grid-row: 1">
+                <div class="panel v-r-task-details-panel" :class="{changed: aenderungVorhanden}" style="grid-column: 1 / 7; grid-row: 1">
                 
                     <div class="panel-header">
                         <div class="panel-title">{{ spur.Spurnummer + ' ' + spur.Spurname }}</div>
@@ -120,15 +120,15 @@
                     :spuren-id="spurenId"
                 ></notizenliste>
 
-                <!-- Relevante Fragen -->
-                <spurenfragen
-                    :spuren-id="spurenId"
-                ></spurenfragen>
-
                 <!-- Tätigkeiten -->
                 <spurentaetigkeiten
                     :spuren-id="spurenId"
                 ></spurentaetigkeiten>
+
+                <!-- Relevante Fragen -->
+                <spurenfragen
+                    :spuren-id="spurenId"
+                ></spurenfragen>
                                 
             </div>
 

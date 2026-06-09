@@ -822,6 +822,10 @@ td.code {
 }
 
 .panel.spurenfragen {
+    grid-column: 5 / 7;
+}
+
+.panel.spurentaetigkeiten {
     grid-column: 3 / 5;
 }
 

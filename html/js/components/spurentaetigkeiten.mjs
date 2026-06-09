@@ -39,7 +39,7 @@ export default {
         formatiereZeit: Hilfsfunktionen.formatiereZeit,
     },
     template: `
-        <div v-if="taetigkeiten" class="panel" style="grid-column: 1 / 5">
+        <div v-if="taetigkeiten" class="panel spurentaetigkeiten">
             <div class="panel-header">
                 <div class="panel-title">Tätigkeiten</div>
             </div>
