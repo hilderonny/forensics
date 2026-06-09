@@ -113,7 +113,7 @@ export default {
                             <td class="topalign half">
                                 <textarea v-model="aktiveVorgangsfragenkopie.Antwort" @input="aktiveVorgangsfrageWurdeGeaendert = true"></textarea>
                             </td>
-                            <td class="topalign half">
+                            <td class="topalign half nobreak">
                                 <div v-for="spur in spuren">
                                     <input :id="'fragezuspur' + vorgangsfrage.Id + spur.Id" type="checkbox" :checked="spurenfragen.find(spurenfrage => spurenfrage.SpurenId === spur.Id && spurenfrage.VorgangsfragenId === vorgangsfrage.Id)" @change="event => aendereVorgangsfragenSpurenzuordnung(vorgangsfrage, spur, event.target.checked)" />
                                     <label :for="'fragezuspur' + vorgangsfrage.Id + spur.Id">{{ spur.Spurnummer }}</label>
