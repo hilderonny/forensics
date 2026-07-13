@@ -20,7 +20,12 @@ export default {
         }
     },
     async created() {
-        this.spuren = await Spur.query(`SELECT * FROM Spuren WHERE VorgangsId = '${this.vorgangsId}'`)
+        const spuren = await Spur.query(`SELECT * FROM Spuren WHERE VorgangsId = '${this.vorgangsId}'`)
+        this.spuren = spuren.sort((spur1, spur2) => {
+            const spurnummer1fuerVergleich = spur1.Spurnummer?.replace(/\d+/g, match => match.padStart(4, '0').slice(-4))
+            const spurnummer2fuerVergleich = spur2.Spurnummer?.replace(/\d+/g, match => match.padStart(4, '0').slice(-4))
+            return spurnummer1fuerVergleich?.localeCompare(spurnummer2fuerVergleich)
+        })
         this.vorgangsfragen = await Vorgangsfrage.query(`SELECT * FROM Vorgangsfragen WHERE VorgangsId = '${this.vorgangsId}'`)
         this.spurenfragen = await Spurenfrage.query(`SELECT Spurenfragen.* FROM Spurenfragen LEFT JOIN Spuren on Spuren.Id = Spurenfragen.SpurenId WHERE VorgangsfragenId IN (SELECT Id FROM Vorgangsfragen WHERE VorgangsId = '${this.vorgangsId}')`)
         Hilfsfunktionen.lauscheAufStrgS(this.behandleSpeichernButtonKlick)
@@ -76,7 +81,12 @@ export default {
         },
         spurennummernFuerVorgangsfrage(vorgangsfrage) {
             const relevanteSpurenfragen = this.spurenfragenFuerVorgangsfrage(vorgangsfrage)
-            return relevanteSpurenfragen.map(spurenfrage => this.spuren.find(spur => spur.Id === spurenfrage.SpurenId).Spurnummer).join(', ')
+            const relevanteSpuren = relevanteSpurenfragen.map(spurenfrage => this.spuren.find(spur => spur.Id === spurenfrage.SpurenId).Spurnummer)
+            return relevanteSpuren.sort((spur1, spur2) => {
+                const spurnummer1fuerVergleich = spur1.Spurnummer?.replace(/\d+/g, match => match.padStart(4, '0').slice(-4))
+                const spurnummer2fuerVergleich = spur2.Spurnummer?.replace(/\d+/g, match => match.padStart(4, '0').slice(-4))
+                return spurnummer1fuerVergleich?.localeCompare(spurnummer2fuerVergleich)
+            }).join(', ')
         },
     },
     props: {
