@@ -3,6 +3,7 @@ import Aufgabe from './types/Aufgabe.mjs'
 import Aufgabenstatus from './types/Aufgabenstatus.mjs'
 import Aufgabenstatuses from './templates/Aufgabenstatuses.mjs'
 import Benutzer from './types/Benutzer.mjs'
+import Notizenliste from './components/notizenliste.mjs'
 import Spur from './types/Spur.mjs'
 import Taetigkeit from './types/Taetigkeit.mjs'
 import Taetigkeitenliste from './components/taetigkeitenliste.mjs'
@@ -11,6 +12,7 @@ import Vorgang from './types/Vorgang.mjs'
 
 const vueApp = {
     components: {
+        Notizenliste,
         Taetigkeitenliste,
         Titelzeile,
     },

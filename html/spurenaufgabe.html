@@ -29,9 +29,9 @@
             </div>
 
             <!-- Anwendungsinhalt -->
-            <div class="app-content">
+            <div class="app-content spurenaufgabe">
 
-                <div class="app-content-grid grid-1-2-col">
+                <div class="app-content-grid grid-3-col">
 
                     <!-- Details -->
                     <div class="panel v-r-task-details-panel" :class="{changed: aenderungVorhanden}">
@@ -73,6 +73,11 @@
                         :aufgabenstatus="aufgabenstatus"
                         :taetigkeiten="taetigkeiten"
                     ></taetigkeitenliste>
+
+                    <!-- Notizen -->
+                    <notizenliste
+                        :spuren-id="spurenId"
+                    ></notizenliste>
 
                 </div>
 
