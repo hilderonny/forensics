@@ -81,12 +81,12 @@ export default {
         },
         spurennummernFuerVorgangsfrage(vorgangsfrage) {
             const relevanteSpurenfragen = this.spurenfragenFuerVorgangsfrage(vorgangsfrage)
-            const relevanteSpuren = relevanteSpurenfragen.map(spurenfrage => this.spuren.find(spur => spur.Id === spurenfrage.SpurenId).Spurnummer)
+            const relevanteSpuren = relevanteSpurenfragen.map(spurenfrage => this.spuren.find(spur => spur.Id === spurenfrage.SpurenId))
             return relevanteSpuren.sort((spur1, spur2) => {
                 const spurnummer1fuerVergleich = spur1.Spurnummer?.replace(/\d+/g, match => match.padStart(4, '0').slice(-4))
                 const spurnummer2fuerVergleich = spur2.Spurnummer?.replace(/\d+/g, match => match.padStart(4, '0').slice(-4))
                 return spurnummer1fuerVergleich?.localeCompare(spurnummer2fuerVergleich)
-            }).join(', ')
+            }).map(spur => spur.Spurnummer).join(', ')
         },
     },
     props: {
