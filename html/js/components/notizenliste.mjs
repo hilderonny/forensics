@@ -72,7 +72,7 @@ export default {
                             <td class="nobreak topalign">
                                 <input type="date" :value="formatiereDatumFuerInput(aktiveNotiz.Datum)" @change="event => { aktiveNotiz.datum = new Date(event.target.value).getTime(); aktiveNotizWurdeGeaendert = true; }" />
                             </td>
-                            <td class="topalign">
+                            <td class="topalign half">
                                 <textarea v-model="aktiveNotiz.Text" @input="aktiveNotizWurdeGeaendert = true"></textarea>
                             </td>
                             <td>

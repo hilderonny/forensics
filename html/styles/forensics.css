@@ -821,10 +821,6 @@ td.code {
     grid-column: 1 / 3; 
 }
 
-.spurenaufgabe .panel.notizen {
-    grid-column: 3/ 4;
-}
-
 .panel.spurenfragen {
     grid-column: 5 / 7;
 }
