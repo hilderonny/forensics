@@ -35,7 +35,7 @@ const vueApp = {
         this.dienststelle = (await Dienststelle.query(`SELECT Dienststellen.* FROM Benutzer JOIN Dienststellen ON Dienststellen.Id = Benutzer.DienststellenId WHERE Benutzer.Id = '${this.userId}'`))[0]
         this.spuren = await Spur.query(`SELECT Besonderheiten, Dasiplatte, Spurname, Spurnummer FROM Spuren WHERE VorgangsId='${this.vorgangsId}'`)
         this.vorgang = await Vorgang.load(this.vorgangsId)
-        this.vorgangsfragen = await Vorgangsfrage.query(`SELECT Antwort, Frage, Nummer FROM Vorgangsfragen WHERE VorgangsId='${this.vorgangsId}' ORDER BY Nummer`)
+        this.vorgangsfragen = (await Vorgangsfrage.query(`SELECT Antwort, Frage, Nummer FROM Vorgangsfragen WHERE VorgangsId='${this.vorgangsId}'`)).sort((vorgangsfrage1, vorgangsfrage2) => parseInt(vorgangsfrage1.Nummer) - parseInt(vorgangsfrage2.Nummer))
         document.title = Hilfsfunktionen.dateinameFuerErgebnismitteilung(this.vorgang, this.benutzer)
         await Vue.nextTick() // Nach dem Rendern erst aufhübschen
         const previewer = new Paged.Previewer()
